@@ -91,10 +91,28 @@ def all_parsers(*args):
     return lambda data: (reduce(lambda f, g: f if f(data) else g, args)(data))
 
 
+
+def array_parser(data):
+    if data[0] != '[':
+        return None
+    parse_list = []
+    data = data[1:].strip()
+    while len(data):
+        res = value_parser(data)
+        if res is None:
+            return
+        parse_list.append(res[0])
+        data = res[1].strip()
+        if data[0] == ']':
+            return [parse_list, data[1:].strip()]
+        res = comma_parser(data)
+        if res is None:
+            return None
+        data = res[1].strip()
 value_parser = all_parsers(null_parser, number_parser, boolean_parser,
                            string_parser, object_parser, array_parser)
 
-
+"""
 def main():
     file_name = "ex3.json"
     with open(file_name, "r") as f:
@@ -109,9 +127,4 @@ def main():
 if __name__ == "__main__":
     main()
 
-
-def string_parser(data):
-    if data[0] == '"':
-        pass
-        pos = data.find('"')
-        return [data[:pos], data[pos + 1:].strip()]
+"""

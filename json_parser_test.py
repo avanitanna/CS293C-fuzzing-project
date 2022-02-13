@@ -1,4 +1,5 @@
 import json_parser_mutated
+import json_parser
 import sys
 import pprint
 
@@ -6,10 +7,13 @@ import pprint
 f = open("json_inp.json")
 content = f.read()
 #print(i)
-res = json_parser_mutated.value_parser(content.strip())
+res_mutated = json_parser_mutated.value_parser(content.strip())
+res = json_parser.value_parser(content.strip())
 try:
-    pprint.pprint(res[0])
-except TypeError:
-    print("Error!")
+    assert res[0] == res_mutated[0]
+    pprint.pprint(res_mutated[0])
+       
+except Exception as e:
+   raise Exception("Error!")
 
 #print(res[0])

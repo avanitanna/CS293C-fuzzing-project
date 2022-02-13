@@ -94,7 +94,7 @@ def all_parsers(*args):
 value_parser = all_parsers(null_parser, number_parser, boolean_parser,
                            string_parser, object_parser, array_parser)
 
-
+"""
 def main():
     file_name = "ex3.json"
     with open(file_name, "r") as f:
@@ -109,3 +109,4 @@ def main():
 if __name__ == "__main__":
     main()
 
+"""
