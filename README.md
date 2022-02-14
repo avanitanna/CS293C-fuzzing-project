@@ -51,6 +51,5 @@ References:
 3. https://www.mdpi.com/2079-9292/10/16/1921 
 4. https://ieeexplore.ieee.org/document/9282794 
 5. https://arxiv.org/pdf/2201.11303.pdf
-6.https://www.researchgate.net/publication/2590658_Design_Of_Mutant_Operators_For_The_C_Programming_Language
+6. https://www.researchgate.net/publication/2590658_Design_Of_Mutant_Operators_For_The_C_Programming_Language
 7. https://dl.acm.org/doi/pdf/10.1145/2635868.2635929 
- 
