@@ -1,55 +1,32 @@
-from fuzzingbook import Grammars
+import sys
+sys.path.append("../")
+
+# from fuzzingbook import Grammars
 from fuzzingbook.Grammars import *
 
-HTML_EBNF_GRAMMAR: Grammar = {
-    "<start>": ["<json>"],
-
-    "<json>": ["<element>"],
-
-    "<element>": ["<ws><value><ws>"],
-
-    "<value>": ["<object>", "<array>", "<string>", "<number>",
-                "true", "false", "null", "'; DROP TABLE STUDENTS"],
-
-    "<object>": ["{<ws>}", "{<members>}"],
-
-    "<members>": ["<member>(,<members>)*"],
-
-    "<member>": ["<ws><string><ws>:<element>"],
-
-    "<array>": ["[<ws>]", "[<elements>]"],
-
-    "<elements>": ["<element>(,<elements>)*"],
-
-    "<element>": ["<ws><value><ws>"],
-
-    "<string>": ['"' + "<characters>" + '"'],
-    
-    "<characters>": ["<character>*"],
-
-    "<character>": srange(CHARACTERS_WITHOUT_QUOTE),
-
-    "<number>": ["<int><frac><exp>"],
-
-    "<int>": ["<digit>", "<onenine><digits>", "-<digits>", "-<onenine><digits>"],
-
-    "<digits>": ["<digit>+"],
-
-    "<digit>": ['0', "<onenine>"],
-
-    "<onenine>": crange('1', '9'),
-
-    "<frac>": ["", ".<digits>"],
-
-    "<exp>": ["", "E<sign><digits>", "e<sign><digits>"],
-
-    "<sign>": ["", '+', '-'],
-
-    # "<ws>": srange(string.whitespace)
-
-    "<ws>": [" "]
+HTML_GRAMMAR: Grammar = {
+    "<start>": ["<!DOCTYPE html><<body>><html-tree></<body>>"],
+    "<html-tree>": ["<text>",
+                   "<html-open-tag><html-tree>",
+                   "<html-tree><html-tree>"],
+    "<html-open-tag>":     ["<id>"],
+    "<id>":                ["<letter_keywords>", "<id><letter_keywords>","<keywords>"],
+    "<text>":              ["<text><letter_space>", "<letter_space>", "<letter_space><text>", "<letter>"],
+    "<letter>":            srange(string.ascii_letters + string.digits +
+                                  "\"" + "'" + "."),
+    "<letter_space>":      srange(string.ascii_letters + string.digits +
+                                  "\"" + "'" + " " + "\t"),
+    "<keywords>" : ["<<script>><text></<script>>","<<style>><text></<style>>","<<div>><text></<div>>"],
+    "<letter_keywords>": ["<<p>><text></<p>>","<<b>><text></<b>>","<<i>><text></<i>>","<<a> href='<text>'></<a>>",
+    "<<u>><text></<u>>", "<<br>>"],
+    "<p>":["p"],
+    "<a>":["a"],
+    "<b>":["b"],
+    "<i>":["i"],
+    "<br>":["br"],
+    "<u>":["u"],
+    "<body>":["body"],
+    "<script>":["script"],
+    "<style>":["style"],
+    "<div>":["div"]
 }
-
-assert is_valid_grammar(JSON_EBNF_GRAMMAR)
-
-HTML_GRAMMAR = convert_ebnf_grammar(HTML_EBNF_GRAMMAR)
