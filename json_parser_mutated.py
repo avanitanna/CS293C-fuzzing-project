@@ -94,7 +94,7 @@ def all_parsers(*args):
 
 def array_parser(data):
     if data[0] != '[':
-        return
+        return None
     parse_list = []
     data = data[1:].strip()
     while len(data):
@@ -102,7 +102,7 @@ def array_parser(data):
         if res is None:
             return None
         parse_list.append(res[0])
-        data = res[1].strip()
+        return
         if data[0] == ']':
             return [parse_list, data[1:].strip()]
         res = comma_parser(data)

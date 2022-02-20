@@ -20,6 +20,10 @@ import copy
 from inspect import getmembers, isfunction
 import json_parser
 
+# for computing coverage
+from fuzzingbook.Coverage import Coverage
+import json_parser_mutated
+
 fns = getmembers(json_parser, isfunction)
 print(fns)
 
@@ -49,7 +53,7 @@ mined_prob_grammar = mutant_grammar_gen.random_vector_gen(mined_prob_grammar, "s
 
 global_output_log = defaultdict(list)
 
-
+max_coverage = 0
 LAMBDA = lambda:0
 tot_death = 0
 tot = 0
@@ -74,8 +78,9 @@ for i in range(int(sys.argv[1])): #limit iterations of fuzzer
         inputs.add(dumb_gen.fuzz())
         inputs.add(mined_gen.fuzz())
 
-    print(len(inputs))
-
+    print("# inputs ", len(inputs))
+    # reset for every iteration
+    max_coverage = 0
     for fn in fns:
         if isinstance(fn[1], type(LAMBDA)) and fn[1].__name__ == LAMBDA.__name__: #check if fn is lambda fn, dont consider that
             continue
@@ -88,13 +93,29 @@ for i in range(int(sys.argv[1])): #limit iterations of fuzzer
             mutated_file = open('json_parser_mutated.py','w')
             mutated_file.write(mutated_prog)
             mutated_file.close()
+            non_blank_count_lines = 0
+            with open('json_parser_mutated.py') as f:
+                for line in f:
+                    if line.strip():
+                        non_blank_count_lines += 1
             tot += 1
             iter_tot += 1
+            # we need to subtract the lines in the original function to avoid duplicate counting
+            #print("non blank lines",non_blank_count_lines - len(mutant.pm.src.split('\n')))
+            non_blank_count_lines -= len(mutant.pm.src.split('\n'))
             for fi in inputs:
                 json_inp = json.dumps(fi)
                 json_inp_file = open("json_inp.json","w")
                 json_inp_file.write(json_inp)
                 json_inp_file.close()
+                with Coverage() as cov_fuzz:
+                    try:
+                        json_parser_mutated.value_parser(fi.strip())
+                    except:
+                        pass
+                #print("Coverage ", cov_fuzz.coverage(), len(cov_fuzz.coverage()))
+                #print("cov ratio",len(cov_fuzz.coverage())/non_blank_count_lines)
+                max_coverage = max(round(len(cov_fuzz.coverage())/non_blank_count_lines,2),max_coverage)
                 out = subprocess.Popen([sys.executable,"json_parser_test.py"],stdout=subprocess.PIPE,stderr=subprocess.PIPE)
                 fuzzout, errors = out.communicate()
                 iter_output_log[hashlib.sha1(mutated_prog.encode()).hexdigest()].append((fi,fuzzout.decode("utf-8"),errors))
@@ -105,9 +126,11 @@ for i in range(int(sys.argv[1])): #limit iterations of fuzzer
                     print("Mutant killed")
     #TODO add logging to collect results
     #TODO add coverage information for results
-    print(killer_inputs)
-    print(inputs) 
+    print("killer inputs\n", killer_inputs)
+    print("inputs\n", inputs) 
     print("Number of mutants killed in iteration:",len(iter_output_log.keys()), "out of", iter_tot)
+    #print("mk ratio", (len(iter_output_log.keys())/iter_tot))
+    print("Score per iteration (number of mutants killed in the iteration divided by the max coverage found in that iteration):",round((len(iter_output_log.keys())/iter_tot)/max_coverage,2)) 
     print("Number of mutants killed total:",len(global_output_log.keys()), "out of", tot)
     #change inputs based on killer inputs
     dumb_prob_grammar = mutant_grammar_gen.modify_vec(dumb_prob_grammar, "random")
