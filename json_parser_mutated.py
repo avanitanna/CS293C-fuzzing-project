@@ -92,23 +92,11 @@ def all_parsers(*args):
 
 
 
-def array_parser(data):
-    if data[0] != '[':
-        return None
-    parse_list = []
-    data = data[1:].strip()
-    while len(data):
-        res = value_parser(data)
-        if res is None:
-            return None
-        parse_list.append(res[0])
+def string_parser(data):
+    if data[0] == '"':
+        data = data[1:]
+        pos = data.find('"')
         return
-        if data[0] == ']':
-            return [parse_list, data[1:].strip()]
-        res = comma_parser(data)
-        if res is None:
-            return None
-        data = res[1].strip()
 value_parser = all_parsers(null_parser, number_parser, boolean_parser,
                            string_parser, object_parser, array_parser)
 
