@@ -24,6 +24,9 @@ import json_parser
 from fuzzingbook.Coverage import Coverage
 import json_parser_mutated
 
+# threading
+import threading 
+
 fns = getmembers(json_parser, isfunction)
 print(fns)
 
@@ -53,7 +56,6 @@ mined_prob_grammar = mutant_grammar_gen.random_vector_gen(mined_prob_grammar, "s
 
 global_output_log = defaultdict(list)
 
-max_coverage = 0
 LAMBDA = lambda:0
 tot_death = 0
 tot = 0
@@ -70,7 +72,7 @@ for fn in fns:
         
 for i in range(int(sys.argv[1])): #limit iterations of fuzzer
     iter_death = 0
-    iter_tot = 0
+    iter_tot = [0]
     iter_output_log = defaultdict(list)
 
     uniform_gen = ProbabilisticGrammarFuzzer(uniform_prob_grammar, max_nonterminals=5)
@@ -91,53 +93,73 @@ for i in range(int(sys.argv[1])): #limit iterations of fuzzer
 
     print("# inputs ", len(inputs))
     # reset for every iteration
-    max_coverage = 0
-    for i,m in enumerate(mutant_srcs):   
-        #mutant.src is mutated function, mutant.prm.src is original function        
-        #Here we append mutated function to file before entry point function, thus overwriting the non mutated implementation
-        #currently one mutation available (adding a return statement)
-        mutated_prog = mutant_seed.split("value_parser = ")[0]+"\n"+m+"\n" + "value_parser = " + mutant_seed.split("value_parser = ")[1]
-        mutated_file = open('json_parser_mutated.py','w')
-        mutated_file.write(mutated_prog)
-        mutated_file.close()
-        non_blank_count_lines = 0
+    max_coverage = [0]
+    def thread_function(index, mutant_srcs_subset, max_coverage = 0, iter_tot = 0):
         
-        with open('json_parser_mutated.py') as f:
-            for line in f:
-                if line.strip():
-                    non_blank_count_lines += 1
-        #tot += 1 #TODO 
-        iter_tot += 1
-        # we need to subtract the lines in the original function to avoid duplicate counting
-        #print("non blank lines",non_blank_count_lines - len(mutant.pm.src.split('\n')))
-        non_blank_count_lines -= mutant_pm_srcs[i]
-        for fi in inputs:
-            json_inp = json.dumps(fi)
-            json_inp_file = open("json_inp.json","w")
-            json_inp_file.write(json_inp)
-            json_inp_file.close()
-            with Coverage() as cov_fuzz:
-                try:
-                    json_parser_mutated.value_parser(fi.strip())
-                except:
-                    pass
-            #print("Coverage ", cov_fuzz.coverage(), len(cov_fuzz.coverage()))
-            max_coverage = max(round(len(cov_fuzz.coverage())/non_blank_count_lines,2),max_coverage)
-            out = subprocess.Popen([sys.executable,"json_parser_test.py"],stdout=subprocess.PIPE,stderr=subprocess.PIPE)
-            fuzzout, errors = out.communicate()
-            iter_output_log[hashlib.sha1(mutated_prog.encode()).hexdigest()].append((fi,fuzzout.decode("utf-8"),errors))
-            global_output_log[hashlib.sha1(mutated_prog.encode()).hexdigest()].append((fi,fuzzout.decode("utf-8"),errors))
+        for i,m in enumerate(mutant_srcs_subset):   
+            #mutant.src is mutated function, mutant.prm.src is original function        
+            #Here we append mutated function to file before entry point function, thus overwriting the non mutated implementation
+            #currently one mutation available (adding a return statement)
+            mutated_prog = mutant_seed.split("value_parser = ")[0]+"\n"+m+"\n" + "value_parser = " + mutant_seed.split("value_parser = ")[1]
+            mutated_file = open('json_parser_mutated_'+str(index)+'.py','w')
+            mutated_file.write(mutated_prog)
+            mutated_file.close()
+            non_blank_count_lines = 0
             
-            if errors:
-                killer_inputs.add(fi)
-                print("Mutant killed")
-                break #break out of the input loop if a mutant is killed, another input is only interesting to us if it kills more mutants, otherwise it belongs to the same equivalence class
+            with open('json_parser_mutated_'+str(index)+'.py') as f:
+                for line in f:
+                    if line.strip():
+                        non_blank_count_lines += 1
+            #tot += 1 #TODO 
+            iter_tot += 1
+            # we need to subtract the lines in the original function to avoid duplicate counting
+            #print("non blank lines",non_blank_count_lines - len(mutant.pm.src.split('\n')))
+            non_blank_count_lines -= mutant_pm_srcs[i]
+            for fi in inputs:
+                json_inp = json.dumps(fi)
+                json_inp_file = open("json_inp_"+str(index)+".json","w")
+                json_inp_file.write(json_inp)
+                json_inp_file.close()
+                with Coverage() as cov_fuzz:
+                    try:
+                        json_parser_mutated.value_parser(fi.strip())
+                    except:
+                        pass
+                #print("Coverage ", cov_fuzz.coverage(), len(cov_fuzz.coverage()))
+                max_coverage[0] = max(round(len(cov_fuzz.coverage())/non_blank_count_lines,2),max_coverage[0])
+                out = subprocess.Popen([sys.executable,"json_parser_test_"+str(index)+".py"],stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+                fuzzout, errors = out.communicate()
+                iter_output_log[hashlib.sha1(mutated_prog.encode()).hexdigest()].append((fi,fuzzout.decode("utf-8"),errors))
+                global_output_log[hashlib.sha1(mutated_prog.encode()).hexdigest()].append((fi,fuzzout.decode("utf-8"),errors))
+                
+                if errors:
+                    killer_inputs.add(fi)
+                    print("Mutant killed")
+                    break #break out of the input loop if a mutant is killed, another input is only interesting to us if it kills more mutants, otherwise it belongs to the same equivalence class
+        
+        return  max_coverage, iter_output_log #fix this! get total iterations, max coverage among all threads
+        
+    threads = list()
+    start = 0
+    for index in range(3):
+        print("create and start thread %d.", index)
+        x = threading.Thread(target=thread_function, args=(index,mutant_srcs[start:start+len(mutant_srcs)//3]))
+        start+=len(mutant_srcs)//3
+        threads.append(x)
+        x.start()
+
+    for index, thread in enumerate(threads):
+        print("before joining thread %d.", index)
+        thread.join()
+        print("thread %d done", index)
+        
+    
     #TODO add logging to collect results
     #TODO add coverage information for results
     print("killer inputs\n", killer_inputs)
     print("inputs\n", inputs) 
     print("Number of mutants killed in iteration:",len(iter_output_log.keys()), "out of", iter_tot)
-    print("Score per iteration (number of mutants killed in the iteration divided by the max coverage found in that iteration):",round((len(iter_output_log.keys())/iter_tot)/max_coverage,2)) 
+    #print("Score per iteration (number of mutants killed in the iteration divided by the max coverage found in that iteration):",round((len(iter_output_log.keys())/iter_tot)/max_coverage,2)) 
     #print("Number of mutants killed total:",len(global_output_log.keys()), "out of", tot)
     #change inputs based on killer inputs
     dumb_prob_grammar = mutant_grammar_gen.modify_vec(dumb_prob_grammar, "random")
