@@ -1,0 +1,118 @@
+defaultdict(<class 'list'>, {
+    '<!DOCTYPE html><body>vy</body>': [0.00275178866263071], 
+    '<!DOCTYPE html><body>q<br>ix</body>': [0.0026068821689259644], 
+    '<!DOCTYPE html><body>mii</body>': [0.0014800197335964479], 
+    '<!DOCTYPE html><body><br>lrG1</body>': [0.001967535661583866], 
+    '<!DOCTYPE html><body>x</body>': [0.001976284584980237]})
+
+round 1 (scores always constant :/ )
+defaultdict(<class 'list'>, 
+        {'<!DOCTYPE html><body>l</body>': [0.00275178866263071],
+         '<!DOCTYPE html><body>q</body>': [0.0026068821689259644], 
+         '<!DOCTYPE html><body>a</body>': [0.0014822134387351778], 
+         '<!DOCTYPE html><body>xE</body>': [0.001973359644795264], 
+         '<!DOCTYPE html><body><br>lrG1</body>': [0.001967535661583866]})
+
+round 2 (after mutant guidance)
+defaultdict(<class 'list'>, 
+    {'<!DOCTYPE html><body>E</body>': [0.0005189413596263622], 
+    '<!DOCTYPE html><body>la</body>': [0.0], 
+    '<!DOCTYPE html><body>l</body>': [0.0], 
+    '<!DOCTYPE html><body>GqGr1</body>': [0.0], 
+    '<!DOCTYPE html><body>xrE</body>': [0.0]})
+
+round 3
+defaultdict(<class 'list'>, {
+    '<!DOCTYPE html><body><br>q</body>': [0.0], 
+    '<!DOCTYPE html><body>lq</body>': [0.0], 
+    '<!DOCTYPE html><body>xl</body>': [0.0], 
+    '<!DOCTYPE html><body>a</body>': [0.0], 
+    '<!DOCTYPE html><body>rrxlxq</body>': [0.0]})
+
+round 4
+efaultdict(<class 'list'>, 
+    {'<!DOCTYPE html><body>E</body>': [0.0], 
+    '<!DOCTYPE html><body>ll1</body>': [0.0], 
+    '<!DOCTYPE html><body>ll</body>': [0.0], 
+    '<!DOCTYPE html><body>r</body>': [0.0], 
+    '<!DOCTYPE html><body>x</body>': [0.0]})
+
+round 5
+efaultdict(<class 'list'>, 
+    {'<!DOCTYPE html><body>1a</body>': [0.0], 
+    '<!DOCTYPE html><body>lE</body>': [0.0], 
+    '<!DOCTYPE html><body>x</body>': [0.0], 
+    '<!DOCTYPE html><body>a</body>': [0.0], 
+    '<!DOCTYPE html><body>ar</body>': [0.0]})
+hypothesis, stuck because diverting to only certain types of input, not increasing coverage :/ or 28 equi mutants
+after adding uniform probabilities
+
+round 1
+defaultdict(<class 'list'>, 
+    {'<!DOCTYPE html><body>w1</body>': [0.00275178866263071], 
+    '<!DOCTYPE html><body>Iq</body>': [0.0026068821689259644], 
+    '<!DOCTYPE html><body>T</body>': [0.0014822134387351778], 
+    '<!DOCTYPE html><body>s56c</body>': [0.001973359644795264], 
+    '<!DOCTYPE html><body>q</body>': [0.001976284584980237], 
+    '<!DOCTYPE html><body>8NH</body>': [0.0005189413596263622], 
+    '<!DOCTYPE html><body><br>3s</body>': [0.0], 
+    "<!DOCTYPE html><body><a href='u'></a><a href='R'></a>Ma</body>": [0.000946073793755913], 
+    '<!DOCTYPE html><body><br>j</body>': [0.003401360544217687], 
+    '<!DOCTYPE html><body>8<br>C</body>': [0.0]})
+
+round 2 25 mutants left (most likely all equivalent)
+defaultdict(<class 'list'>, 
+    {'<!DOCTYPE html><body><script>Q</script><br><br>x</body>': [0.0], 
+    '<!DOCTYPE html><body>1T</body>': [0.0], 
+    '<!DOCTYPE html><body><div>Hxa</div><br>0<br>W</body>': [0.0], 
+    '<!DOCTYPE html><body>bp<br><br>j</body>': [0.0], 
+    '<!DOCTYPE html><body><script>b</script>w</body>': [0.0], 
+    '<!DOCTYPE html><body>s</body>': [0.0], 
+    '<!DOCTYPE html><body>MT</body>': [0.0], 
+    '<!DOCTYPE html><body>IMH</body>': [0.0], 
+    '<!DOCTYPE html><body>DT0<br>T</body>': [0.0], 
+    "<!DOCTYPE html><body><a href='q'></a><br>8</body>": [0.00047192071731949034]})
+
+round 3 24 mutants left (most likely all equivalent)
+defaultdict(<class 'list'>, 
+    {'<!DOCTYPE html><body>5q8I</body>': [0.0], 
+    '<!DOCTYPE html><body><br><i>l</i>g</body>': [0.0], 
+    "<!DOCTYPE html><body><a href='j'></a>a</body>": [0.0], 
+    '<!DOCTYPE html><body><br>N</body>': [0.0], 
+    '<!DOCTYPE html><body>y<br><br>U</body>': [0.0], 
+    '<!DOCTYPE html><body><br><br>I<br>7</body>': [0.0], 
+    '<!DOCTYPE html><body><br><br>8<br> </body>': [0.0],
+     '<!DOCTYPE html><body>I</body>': [0.0], '
+     <!DOCTYPE html><body>Tp<br>K</body>': [0.0], 
+     '<!DOCTYPE html><body>qq</body>': [0.0]})
+
+
+round 1
+defaultdict(<class 'list'>, {
+    "<!DOCTYPE html><body><br><a href='2'></a><br>a</body>": [0.00275178866263071], 
+    '<!DOCTYPE html><body>g</body>': [0.0026068821689259644],
+    '<!DOCTYPE html><body><br>Y</body>': [0.001477832512315271], 
+    '<!DOCTYPE html><body>q</body>': [0.001976284584980237], 
+    '<!DOCTYPE html><body>yw</body>': [0.001973359644795264], 
+    '<!DOCTYPE html><body><br><br>hG</body>': [0.0005189413596263622], 
+    '<!DOCTYPE html><body><br>Zx</body>': [0.0], 
+    '<!DOCTYPE html><body><br>4E</body>': [0.0], 
+    '<!DOCTYPE html><body><b>p</b>3T</body>': [0.0],
+    '<!DOCTYPE html><body><br>j</body>': [0.0]})
+
+round 2, 28 mutants (at least 4 should be killable)
+
+round 1
+defaultdict(<class 'list'>, {
+    '<!DOCTYPE html><body><br><br><br>aq</body>': [0.00275178866263071], 
+    '<!DOCTYPE html><body><br>0<br><br> </body>': [0.0026068821689259644], 
+    '<!DOCTYPE html><body>r</body>': [0.0014822134387351778], 
+    '<!DOCTYPE html><body><br><i>E</i>1</body>': [0.0019286403085824494], 
+    '<!DOCTYPE html><body>a</body>': [0.001976284584980237], 
+    "<!DOCTYPE html><body><a href='M'></a><style>S</style><i>d</i>y</body>": [0.0009254974548819991], 
+    '<!DOCTYPE html><body><div>y</div><p>s</p><br>Q</body>': [0.0], 
+    '<!DOCTYPE html><body>L</body>': [0.0], 
+    '<!DOCTYPE html><body><br>j</body>': [0.0], 
+    '<!DOCTYPE html><body><br>0s</body>': [0.0]})
+
+round 2, 27 mutants (at least 3 killable)

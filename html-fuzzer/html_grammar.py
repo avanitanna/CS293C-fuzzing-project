@@ -28,5 +28,5 @@ HTML_GRAMMAR: Grammar = {
     "<body>":["body"],
     "<script>":["script"],
     "<style>":["style"],
-    "<div>":["div"]
+    "<div>":["div"],
 }
