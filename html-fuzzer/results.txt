@@ -47,7 +47,7 @@ efaultdict(<class 'list'>,
 hypothesis, stuck because diverting to only certain types of input, not increasing coverage :/ or 28 equi mutants
 after adding uniform probabilities
 
-round 1
+round 1 50 mutants
 defaultdict(<class 'list'>, 
     {'<!DOCTYPE html><body>w1</body>': [0.00275178866263071], 
     '<!DOCTYPE html><body>Iq</body>': [0.0026068821689259644], 

@@ -5,7 +5,7 @@ from collections import defaultdict
 import copy
 from inspect import getmembers, isfunction
 import os
-
+import matplotlib.pyplot as plt
 sys.path.append("../")
 
 import mutant_creator
@@ -62,14 +62,6 @@ htmltree_seed = htmltree_to_fuzz.read()
 htmltokenizer_seed = htmltokenizer_to_fuzz.read()
 
 
-# inp_gen = ProbabilisticGrammarFuzzer(JSON_GRAMMAR)
-
-#generate probabilistic grammar
-#we use mutliple grammars to offset fixed directions caused by killing only particular kinds of mutants
- 
-uniform_prob_grammar = copy.deepcopy(HTML_GRAMMAR)
-dumb_prob_grammar = copy.deepcopy(HTML_GRAMMAR)
-mined_prob_grammar = copy.deepcopy(HTML_GRAMMAR)
 
 baseline_fuzz = GrammarFuzzer(HTML_GRAMMAR, max_nonterminals=5)
 samples = []
@@ -79,9 +71,6 @@ for i in range(10):
     if sample not in samples:
         samples.append(baseline_fuzz.fuzz())
 
-uniform_prob_grammar = mutant_grammar_gen.random_vector_gen(uniform_prob_grammar,"uniform")
-dumb_prob_grammar = mutant_grammar_gen.random_vector_gen(dumb_prob_grammar,"dumb")
-mined_prob_grammar = mutant_grammar_gen.random_vector_gen(mined_prob_grammar, "sample", samples)
 
 global_output_log = defaultdict(list)
 
@@ -93,67 +82,34 @@ tot = 0
 ## save mutant_srcs - as we have an exhaustive list of mutants for every fuzzer iteration, it is more efficient to run it outside the fuzzer iterations 
 mutant_srcs = []
 mutant_pm_srcs = []
-# print(inspect.getsource(HTMLParser))
 
-# for fn in htmlparser_fns:
-#     print(fn[1].__name__)
-#     if (isinstance(fn[1], type(LAMBDA)) and fn[1].__name__ == LAMBDA.__name__): #check if fn is lambda fn or init, dont consider that
-#         continue
 for mutant in mutant_creator.MuFunctionAnalyzer(etree): ## fn[0] is the function name. We need to pass the function, so take fn[1]
     mutant_srcs.append(mutant.src())
     mutant_pm_srcs.append(len(mutant.pm.src.split('\n')))        
 
-
-# mutated_prog = htmlparser_seed.split(signature)[0]
-# print(mutated_prog)
-# mutated_file = open('json_parser_mutated.py','w')
-# mutated_file.write(mutated_prog)
-# mutated_file.close()
-
-# for fn in htmltree_fns:
-#     if isinstance(fn[1], type(LAMBDA)) and fn[1].__name__ == LAMBDA.__name__: #check if fn is lambda fn, dont consider that
-#         continue
-#     for mutant in mutant_creator.MuFunctionAnalyzer(fn[1]): ## fn[0] is the function name. We need to pass the function, so take fn[1]
-#         mutant_srcs.append(mutant.src())
-#         mutant_pm_srcs.append(len(mutant.pm.src.split('\n')))
-
-# for fn in htmltokenizer_fns:
-#     if isinstance(fn[1], type(LAMBDA)) and fn[1].__name__ == LAMBDA.__name__: #check if fn is lambda fn, dont consider that
-#         continue
-#     for mutant in mutant_creator.MuFunctionAnalyzer(fn[1]): ## fn[0] is the function name. We need to pass the function, so take fn[1]
-#         mutant_srcs.append(mutant.src())
-#         mutant_pm_srcs.append(len(mutant.pm.src.split('\n')))
-
-
-mutant_srcs = mutant_srcs[:50]
+mut_limit = 12
+mutant_srcs = mutant_srcs[:mut_limit]
+killed_list = set()
+iter_death = 0
 
 for i in range(int(sys.argv[1])): #limit iterations of fuzzer
-    iter_death = 0
-    iter_tot = 0
     iter_output_log = defaultdict(list)
-
-    uniform_gen = ProbabilisticGrammarFuzzer(uniform_prob_grammar, max_nonterminals=5)
-    dumb_gen = ProbabilisticGrammarFuzzer(dumb_prob_grammar,  max_nonterminals=5)
-    mined_gen = ProbabilisticGrammarFuzzer(mined_prob_grammar,  max_nonterminals=5)
-
+    iter_cov = 0
+    tot+=1
     inputs = set()
     dumbinputs = set()
     uniforminputs = set()
     print("inside fuzzing loop")
-    # print(uniform_prob_grammar)
-    # print(dumb_prob_grammar)
-    # print(mined_prob_grammar)
-    #generate inputs for fuzzer
-    #TODO timeout if input generation takes too long
+
     for i in range(int(sys.argv[2])): #accept command line argument for number of inputs per grammar
         # print(inputs)
-        inputs.add(uniform_gen.fuzz())
-        dumbinputs.add(dumb_gen.fuzz())
-        inputs.add(mined_gen.fuzz())
+        inputs.add(baseline_fuzz.fuzz())
+
     killer_inputs = set()
     print("# inputs ", len(inputs))
     # reset for every iteration
     max_coverage = 0
+
     for html_inp in inputs:
         #for each input calculate score (mutants killed/ coverage)
         #see how score improves per iteration of generation of inputs
@@ -161,8 +117,7 @@ for i in range(int(sys.argv[1])): #limit iterations of fuzzer
         #if it isn't increasing or tapering off, it isn't working
 
         mutant_killed = 0 #per input generation
-        inp_coverage=[] 
-        killed_list = set()
+        inp_coverage=[0] 
 
         for i,m in enumerate(mutant_srcs):   
             #mutant.src is mutated function, mutant.prm.src is original function        
@@ -177,7 +132,6 @@ for i in range(int(sys.argv[1])): #limit iterations of fuzzer
             mutated_file.write(mutated_prog)
             mutated_file.close()
             
-            iter_tot += 1
             out = subprocess.Popen([sys.executable, "html_tester.py",html_inp],stdout=subprocess.PIPE,stderr=subprocess.PIPE)
             fuzzout, errors = out.communicate()
             fuzzout = fuzzout.decode("utf-8").split(":-")
@@ -199,22 +153,46 @@ for i in range(int(sys.argv[1])): #limit iterations of fuzzer
 
             if correct_output != test_output:
                 killer_inputs.add(html_inp)
-                inp_coverage.append(test_cover)
                 mutant_killed+=1
                 killed_list.add(i)
                 print("killed list:",killed_list,"Mutant killed!")
-        
-        iter_output_log[html_inp].append(mutant_killed/max(inp_coverage))
+            
+            inp_coverage.append(test_cover)
+        iter_output_log[html_inp].append(mutant_killed)
+        iter_output_log[html_inp].append(max(inp_coverage))        
+        iter_death += iter_output_log[html_inp][0]
+        iter_cov = max([iter_cov,iter_output_log[html_inp][1]])
         print("for input:"+html_inp+":coverage was:"+str(test_cover)+":and mutants killed were:"+str(mutant_killed)+":out of:"+str(len(mutant_srcs)))
 
-    dumb_prob_grammar = mutant_grammar_gen.modify_vec(dumb_prob_grammar, "random")
-    uniform_prob_grammar = mutant_grammar_gen.modify_vec(uniform_prob_grammar, "random")
-    if len(killer_inputs) != 0: #don't change grammar if no killer inputs
-        mined_prob_grammar = mutant_grammar_gen.modify_vec(mined_prob_grammar, "mined", list(killer_inputs))
-    print("recalibrated grammars for mutant killing")
+    print("baseline for mutant killing")
     print("Current stats:")
     print(iter_output_log)
+    global_output_log[tot] = [mut_limit - iter_death, iter_cov]
+print(global_output_log)
 
+y_kill=[mut_limit]
+y_kill += list(map(lambda x: global_output_log[x][0] ,global_output_log))
+x_kill = range(len(y_kill))
+
+y_cov = [0]
+y_cov += list(map(lambda x: global_output_log[x][1] ,global_output_log))
+x_cov = range(len(y_cov))
+
+plt.plot(x_kill,y_kill,color='red', marker='o')
+plt.title("Speed of update of inputs via randomness")
+plt.xlabel("Number of total iterations")
+plt.ylabel("Mutants Remaining")
+plt.xticks(range(len(x_kill)+1))
+plt.grid(True)
+plt.show()
+
+plt.plot(x_cov,y_cov,color='green', marker='o')
+plt.title("Speed of update of inputs via randomness")
+plt.xlabel("Number of total iterations")
+plt.ylabel("Coverage")
+plt.xticks(range(len(x_cov)+1))
+plt.grid(True)
+plt.show()
     #TODO add logging to collect results
     #TODO add coverage information for results
     #parser flow 

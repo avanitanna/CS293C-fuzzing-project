@@ -3,7 +3,6 @@ import sys
 sys.path.append("../")
 
 from fuzzingbook.Coverage import Coverage
-
 # def testing_coverage(sample):
 #     parser = html5lib.HTMLParser(strict=True)
 #     element = parser.parse(sample)

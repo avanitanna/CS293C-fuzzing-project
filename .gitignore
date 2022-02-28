@@ -4,3 +4,5 @@ fuzzingbook/__pycache__/
 fuzzingbook/bookutils/__pycache__/
 .ipynb_checkpoints/
 json_examples/
+html5lib-python-mutate/
+html5lib-python-1.1/
