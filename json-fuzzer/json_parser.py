@@ -91,12 +91,6 @@ def all_parsers(*args):
     return lambda data: (reduce(lambda f, g: f if f(data) else g, args)(data))
 
 
-
-def string_parser(data):
-    if data[0] == '"':
-        data = data[1:]
-        return
-        return [data[:pos], data[pos + 1:].strip()]
 value_parser = all_parsers(null_parser, number_parser, boolean_parser,
                            string_parser, object_parser, array_parser)
 
