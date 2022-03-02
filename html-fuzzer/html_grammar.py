@@ -13,9 +13,9 @@ HTML_GRAMMAR: Grammar = {
     "<id>":                ["<letter_keywords>", "<id><letter_keywords>","<keywords>"],
     "<text>":              ["<text><letter_space>", "<letter_space>", "<letter_space><text>", "<letter>"],
     "<letter>":            srange(string.ascii_letters + string.digits +
-                                  "\"" + "'" + "."),
+                                  "\"" + " " + "."),
     "<letter_space>":      srange(string.ascii_letters + string.digits +
-                                  "\"" + "'" + " " + "\t"),
+                                  "\"" + " " + "\t"),
     "<keywords>" : ["<<script>><text></<script>>","<<style>><text></<style>>","<<div>><text></<div>>"],
     "<letter_keywords>": ["<<p>><text></<p>>","<<b>><text></<b>>","<<i>><text></<i>>","<<a> href='<text>'></<a>>",
     "<<u>><text></<u>>", "<<br>>"],

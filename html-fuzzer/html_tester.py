@@ -28,4 +28,7 @@ def test_function(sample):
 
 if __name__=="__main__":
     sample = sys.argv[1]
-    test_function(sample)
+    try:
+        test_function(sample)
+    except Exception as e:
+        print("input invalid!")

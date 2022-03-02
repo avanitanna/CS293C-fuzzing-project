@@ -116,3 +116,8 @@ defaultdict(<class 'list'>, {
     '<!DOCTYPE html><body><br>0s</body>': [0.0]})
 
 round 2, 27 mutants (at least 3 killable)
+
+
+For top 12 mutants:
+<!DOCTYPE html><body><script>T</script><br><br>gO</body> cov 2032  and
+<!DOCTYPE html><body>Nn</body> cov 294 kill persistent mutants

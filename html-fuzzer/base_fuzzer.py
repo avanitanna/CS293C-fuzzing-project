@@ -87,7 +87,7 @@ for mutant in mutant_creator.MuFunctionAnalyzer(etree): ## fn[0] is the function
     mutant_srcs.append(mutant.src())
     mutant_pm_srcs.append(len(mutant.pm.src.split('\n')))        
 
-mut_limit = 12
+mut_limit = int(sys.argv[3])
 mutant_srcs = mutant_srcs[:mut_limit]
 killed_list = set()
 iter_death = 0
@@ -97,13 +97,15 @@ for i in range(int(sys.argv[1])): #limit iterations of fuzzer
     iter_cov = 0
     tot+=1
     inputs = set()
-    dumbinputs = set()
-    uniforminputs = set()
-    print("inside fuzzing loop")
 
-    for i in range(int(sys.argv[2])): #accept command line argument for number of inputs per grammar
-        # print(inputs)
+    print("inside fuzzing loop")
+    inp_count=0
+    while True:
+        if len(inputs) == int(sys.argv[2]) or inp_count > int(sys.argv[2])*int(sys.argv[2]):
+            break    
         inputs.add(baseline_fuzz.fuzz())
+        inp_count+=1
+
 
     killer_inputs = set()
     print("# inputs ", len(inputs))
@@ -135,8 +137,11 @@ for i in range(int(sys.argv[1])): #limit iterations of fuzzer
             out = subprocess.Popen([sys.executable, "html_tester.py",html_inp],stdout=subprocess.PIPE,stderr=subprocess.PIPE)
             fuzzout, errors = out.communicate()
             fuzzout = fuzzout.decode("utf-8").split(":-")
-            correct_cov = fuzzout[1]
-            correct_output = fuzzout[0]            
+            correct_cov=''
+            correct_output=''
+            if len(fuzzout) == 2:
+                correct_cov = fuzzout[1]
+                correct_output = fuzzout[0]
             print(html_inp)
             output_str = test_env(html_inp)
             print(output_str)
@@ -162,7 +167,7 @@ for i in range(int(sys.argv[1])): #limit iterations of fuzzer
         iter_output_log[html_inp].append(max(inp_coverage))        
         iter_death += iter_output_log[html_inp][0]
         iter_cov = max([iter_cov,iter_output_log[html_inp][1]])
-        print("for input:"+html_inp+":coverage was:"+str(test_cover)+":and mutants killed were:"+str(mutant_killed)+":out of:"+str(len(mutant_srcs)))
+        print("for input:"+html_inp+":coverage was:"+str(test_cover)+":and mutants killed were:"+str(mutant_killed)+":out of:"+str(len(mutant_srcs)-len(killed_list)))
 
     print("baseline for mutant killing")
     print("Current stats:")
@@ -184,7 +189,9 @@ plt.xlabel("Number of total iterations")
 plt.ylabel("Mutants Remaining")
 plt.xticks(range(len(x_kill)+1))
 plt.grid(True)
-plt.show()
+plt.savefig("base_based_killed.png")
+plt.clf()
+
 
 plt.plot(x_cov,y_cov,color='green', marker='o')
 plt.title("Speed of update of inputs via randomness")
@@ -192,7 +199,10 @@ plt.xlabel("Number of total iterations")
 plt.ylabel("Coverage")
 plt.xticks(range(len(x_cov)+1))
 plt.grid(True)
-plt.show()
+plt.savefig("base_based_cov.png")
+plt.clf()
+
+runner.stop()
     #TODO add logging to collect results
     #TODO add coverage information for results
     #parser flow 

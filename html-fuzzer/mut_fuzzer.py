@@ -62,7 +62,8 @@ htmlparser_seed = htmlparser_to_fuzz.read()
 htmltree_seed = htmltree_to_fuzz.read()
 htmltokenizer_seed = htmltokenizer_to_fuzz.read()
 
-cov_prob_grammar = copy.deepcopy(HTML_GRAMMAR)
+hybrid_prob_grammar = copy.deepcopy(HTML_GRAMMAR)
+random_prob_grammar = copy.deepcopy(HTML_GRAMMAR)
 
 baseline_fuzz = GrammarFuzzer(HTML_GRAMMAR, max_nonterminals=5)
 samples = []
@@ -72,7 +73,8 @@ for i in range(10):
     if sample not in samples:
         samples.append(baseline_fuzz.fuzz())
 
-cov_prob_grammar = mutant_grammar_gen.random_vector_gen(cov_prob_grammar, "sample", samples)
+hybrid_prob_grammar = mutant_grammar_gen.random_vector_gen(hybrid_prob_grammar, "sample", samples)
+random_prob_grammar = mutant_grammar_gen.random_vector_gen(random_prob_grammar, "sample", samples)
 
 global_output_log = defaultdict(list)
 
@@ -101,14 +103,19 @@ for i in range(int(sys.argv[1])): #limit iterations of fuzzer
     inputs = set()
 
     print("inside fuzzing loop")
+    hybrid_gen = ProbabilisticGrammarFuzzer(hybrid_prob_grammar,  max_nonterminals=5)
+    random_gen = ProbabilisticGrammarFuzzer(random_prob_grammar,  max_nonterminals=5)
 
-    cov_gen = ProbabilisticGrammarFuzzer(cov_prob_grammar,  max_nonterminals=5)
+    #for i in range(int(sys.argv[2])): #accept command line argument for number of inputs per grammar
+        # print(inputs)
     inp_count=0
     while True:
         if len(inputs) == int(sys.argv[2]) or inp_count > int(sys.argv[2])*int(sys.argv[2]):
             break    
-        inputs.add(cov_gen.fuzz())
+        inputs.add(random_gen.fuzz())
+        inputs.add(hybrid_gen.fuzz())
         inp_count+=1
+
 
     killer_inputs = set()
     print("# inputs ", len(inputs))
@@ -140,8 +147,11 @@ for i in range(int(sys.argv[1])): #limit iterations of fuzzer
             out = subprocess.Popen([sys.executable, "html_tester.py",html_inp],stdout=subprocess.PIPE,stderr=subprocess.PIPE)
             fuzzout, errors = out.communicate()
             fuzzout = fuzzout.decode("utf-8").split(":-")
-            correct_cov = fuzzout[1]
-            correct_output = fuzzout[0]            
+            correct_cov=''
+            correct_output=''
+            if len(fuzzout) == 2:
+                correct_cov = fuzzout[1]
+                correct_output = fuzzout[0]            
             print(html_inp)
             output_str = test_env(html_inp)
             print(output_str)
@@ -167,24 +177,15 @@ for i in range(int(sys.argv[1])): #limit iterations of fuzzer
         iter_output_log[html_inp].append(max(inp_coverage))        
         iter_death += iter_output_log[html_inp][0]
         iter_cov = max([iter_cov,iter_output_log[html_inp][1]])
-        print("for input:"+html_inp+":coverage was:"+str(test_cover)+":and mutants killed were:"+str(mutant_killed)+":out of:"+str(len(mutant_srcs)-len(killed_list)))
+        print("for input:"+html_inp+":coverage was:"+str(test_cover)+":and mutants killed were:"+str(mutant_killed)+":out of:"+str(len(mutant_srcs) - len(killed_list)))
 
     print("baseline for mutant killing")
     print("Current stats:")
     print(iter_output_log)
-    #get top k values where k is 25%. 
-    top_k = sorted(iter_output_log.items(), key = lambda item: item[1][1])
-    global_output_log[tot] = [mut_limit - iter_death, iter_cov]
-    top_global = sorted(global_output_log.items(), key = lambda item: item[1][1])[0]
-    samples = []
-    for k,v in top_k:
-        if top_global[1][1] < v[1]:
-            samples.append(k)
-    if len(samples) < len(iter_output_log)//4:
-        #random changes if not enough inputs that increase coverage
-        cov_prob_grammar = mutant_grammar_gen.modify_vec(cov_prob_grammar, "random")
-    else:
-        cov_prob_grammar = mutant_grammar_gen.modify_vec(cov_prob_grammar, "mined", samples)
+
+    if len(killer_inputs) != 0:
+        hybrid_prob_grammar = mutant_grammar_gen.modify_vec(hybrid_prob_grammar, "mined", list(killer_inputs)) 
+    random_prob_grammar = mutant_grammar_gen.modify_vec(random_prob_grammar, "random")
     
 
 print(global_output_log)
@@ -203,7 +204,7 @@ plt.xlabel("Number of total iterations")
 plt.ylabel("Mutants Remaining")
 plt.xticks(range(len(x_kill)+1))
 plt.grid(True)
-plt.savefig("cov_based_killed.png")
+plt.savefig("mut_based_killed.png")
 plt.clf()
 
 plt.plot(x_cov,y_cov,color='green', marker='o')
@@ -212,7 +213,7 @@ plt.xlabel("Number of total iterations")
 plt.ylabel("Coverage")
 plt.xticks(range(len(x_cov)+1))
 plt.grid(True)
-plt.savefig("cov_based_cov.png")
+plt.savefig("mut_based_cov.png")
 plt.clf()
 
 runner.stop()
