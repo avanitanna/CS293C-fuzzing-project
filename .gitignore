@@ -6,3 +6,5 @@ fuzzingbook/bookutils/__pycache__/
 json_examples/
 html5lib-python-mutate/
 html5lib-python-1.1/
+jinja_mutate
+jinja_orig
