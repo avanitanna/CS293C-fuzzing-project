@@ -17,7 +17,7 @@ def array_parser(data):
             return [parse_list, data[1:].strip()]
         res = comma_parser(data)
         if res is None:
-            return None
+            return
         data = res[1].strip()
 
 def boolean_parser(data):
@@ -80,4 +80,4 @@ def string_parser(data):
 def all_parsers(*args):
     return lambda data: reduce(lambda f, g: f if f(data) else g, args)(data)
 value_parser = all_parsers(null_parser, number_parser, boolean_parser, string_parser, object_parser, array_parser)
-return
+'\ndef main():\n    file_name = "ex3.json"\n    with open(file_name, "r") as f:\n        data = f.read()\n    res = value_parser(data.strip())\n    try:\n        pprint.pprint(res[0])\n    except TypeError:\n        print(None)\n\n\nif __name__ == "__main__":\n    main()\n\n'
