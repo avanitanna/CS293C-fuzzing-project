@@ -42,7 +42,7 @@ def number_parser(data):
     regex_find = re.findall('^(-?(?:[0-9]\\d*)(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)', data)
     if not regex_find:
         return None
-    pass
+    pos = len(regex_find[0])
     try:
         return [int(regex_find[0]), data[pos:].strip()]
     except ValueError:
@@ -80,4 +80,4 @@ def string_parser(data):
 def all_parsers(*args):
     return lambda data: reduce(lambda f, g: f if f(data) else g, args)(data)
 value_parser = all_parsers(null_parser, number_parser, boolean_parser, string_parser, object_parser, array_parser)
-'\ndef main():\n    file_name = "ex3.json"\n    with open(file_name, "r") as f:\n        data = f.read()\n    res = value_parser(data.strip())\n    try:\n        pprint.pprint(res[0])\n    except TypeError:\n        print(None)\n\n\nif __name__ == "__main__":\n    main()\n\n'
+pass

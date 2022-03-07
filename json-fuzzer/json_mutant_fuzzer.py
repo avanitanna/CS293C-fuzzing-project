@@ -146,7 +146,10 @@ for j in range(int(sys.argv[1])): #limit iterations of fuzzer
         mut_prob_grammar = mutant_grammar_gen.modify_vec(mut_prob_grammar, "mined", list(killer_inputs)) 
     random_prob_grammar = mutant_grammar_gen.modify_vec(random_prob_grammar, "random")
 
-print(global_output_log)
+print('global output log', global_output_log)
+## store logs
+with open('C:/Users/Avani/Data/Learning/UCSB_PREP/CS293C/CS293C-fuzzing-project/json-fuzzer/results/StmtReturnMutator/json_mutant_fuzzer/output_log_50-50-50.txt','w') as data: 
+    data.write(str(global_output_log))
 
 y_kill=[mut_limit]
 y_kill += list(map(lambda x: global_output_log[x][0] ,global_output_log))
@@ -157,20 +160,22 @@ y_cov += list(map(lambda x: global_output_log[x][1] ,global_output_log))
 x_cov = range(len(y_cov))
 
 plt.plot(x_kill,y_kill,color='red', marker='o')
-plt.title("Json mutant guided fuzzer")
+plt.title("Json Mutant fuzzer")
 plt.xlabel("Number of total iterations")
 plt.ylabel("Mutants Remaining")
-plt.xticks(range(len(x_kill)+1))
+#plt.xticks(nbins=10)
+#plt.xticks(range(len(x_kill)+1))
 plt.grid(True)
 plt.savefig("C:/Users/Avani/Data/Learning/UCSB_PREP/CS293C/CS293C-fuzzing-project/json-fuzzer/results/StmtReturnMutator/json_mutant_fuzzer/mutant_50-50-50.png")
 plt.clf()
 #plt.show()
 
 plt.plot(x_cov,y_cov,color='green', marker='o')
-plt.title("Json mutant guided fuzzer")
+plt.title("Json Mutant fuzzer")
 plt.xlabel("Number of total iterations")
 plt.ylabel("Coverage")
-plt.xticks(range(len(x_cov)+1))
+#plt.xticks(nbins=10)
+#plt.xticks(range(len(x_cov)+1))
 plt.grid(True)
 plt.savefig("C:/Users/Avani/Data/Learning/UCSB_PREP/CS293C/CS293C-fuzzing-project/json-fuzzer/results/StmtReturnMutator/json_mutant_fuzzer/cov_50-50-50.png")
 plt.clf()

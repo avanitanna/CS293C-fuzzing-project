@@ -140,6 +140,17 @@ for i in range(int(sys.argv[1])): #limit iterations of fuzzer
 
             if fuzzout[0] == "killed":
                 print("REAL ERROR FOUND!")
+                with open('C:/Users/Avani/Data/Learning/UCSB_PREP/CS293C/CS293C-fuzzing-project/jinja-fuzzer/results/StmtReturnMutator/jinja_base_fuzzer/real_errors_50-50-50.txt','a') as realerror: 
+                    realerror.write("jinja_inp\n")
+                    realerror.write(jinja_inp)
+                    realerror.write("\n")
+                    realerror.write("mutant\n")
+                    realerror.write(m)
+                    realerror.write("\n")
+
+
+
+                
             # take input into account if it finds real bugs
             if correct_output != test_output or fuzzout[0] == "killed":
                 killer_inputs.add(jinja_inp)
@@ -159,6 +170,10 @@ for i in range(int(sys.argv[1])): #limit iterations of fuzzer
     print(iter_output_log)
     global_output_log[tot] = [mut_limit - iter_death, iter_cov]
 print(global_output_log)
+## store logs
+with open('C:/Users/Avani/Data/Learning/UCSB_PREP/CS293C/CS293C-fuzzing-project/jinja-fuzzer/results/StmtReturnMutator/jinja_base_fuzzer/output_log_50-50-50.txt','w') as data: 
+    data.write(str(global_output_log))
+
 
 y_kill=[mut_limit]
 y_kill += list(map(lambda x: global_output_log[x][0] ,global_output_log))
@@ -169,22 +184,24 @@ y_cov += list(map(lambda x: global_output_log[x][1] ,global_output_log))
 x_cov = range(len(y_cov))
 
 plt.plot(x_kill,y_kill,color='red', marker='o')
-plt.title("Jinja base fuzzer")
+plt.title("Jinja Base Fuzzer")
 plt.xlabel("Number of total iterations")
 plt.ylabel("Mutants Remaining")
-plt.xticks(range(len(x_kill)+1))
+#plt.xticks(nbins=10)
+#plt.xticks(range(len(x_kill)+1))
 plt.grid(True)
-plt.savefig("base_based_killed.png")
+plt.savefig("C:/Users/Avani/Data/Learning/UCSB_PREP/CS293C/CS293C-fuzzing-project/jinja-fuzzer/results/StmtReturnMutator/jinja_base_fuzzer/mutant_50-50-50.png")
 plt.clf()
 
 
 plt.plot(x_cov,y_cov,color='green', marker='o')
-plt.title("Jinja base fuzzer")
+plt.title("Jinja Base Fuzzer")
 plt.xlabel("Number of total iterations")
 plt.ylabel("Coverage")
-plt.xticks(range(len(x_cov)+1))
+#plt.xticks(nbins=10)
+#plt.xticks(range(len(x_cov)+1))
 plt.grid(True)
-plt.savefig("base_based_cov.png")
+plt.savefig("C:/Users/Avani/Data/Learning/UCSB_PREP/CS293C/CS293C-fuzzing-project/jinja-fuzzer/results/StmtReturnMutator/jinja_base_fuzzer/cov_50-50-50.png")
 plt.clf()
 
 runner.stop()
