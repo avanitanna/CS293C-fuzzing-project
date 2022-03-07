@@ -8,7 +8,7 @@ from fuzzingbook.Coverage import Coverage
 #     element = parser.parse(sample)
 #     return element
 
-def test_function(sample):
+def test_function(sample, ind):
     element = None
     with Coverage() as cov_fuzz:
         try:
@@ -24,11 +24,13 @@ def test_function(sample):
     ex_str=''
     for i in output:
         ex_str+=i
-    print(ex_str+":-"+str(len(cov)))
+    if i == 1:
+        print(ex_str+":-"+str(len(cov)))
 
 if __name__=="__main__":
     sample = sys.argv[1]
-    try:
-        test_function(sample)
-    except Exception as e:
-        print("input invalid!")
+    for i in range(2):
+        try:
+            test_function(sample, i)
+        except Exception as e:
+            print("input invalid!")

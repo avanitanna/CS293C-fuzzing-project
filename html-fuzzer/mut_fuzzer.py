@@ -186,7 +186,7 @@ for i in range(int(sys.argv[1])): #limit iterations of fuzzer
     if len(killer_inputs) != 0:
         mut_prob_grammar = mutant_grammar_gen.modify_vec(mut_prob_grammar, "mined", list(killer_inputs)) 
     random_prob_grammar = mutant_grammar_gen.modify_vec(random_prob_grammar, "random")
-    
+    global_output_log[tot] = [mut_limit - iter_death, iter_cov]
 
 print(global_output_log)
 

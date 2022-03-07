@@ -32,7 +32,7 @@ from fuzzingbook.Grammars import *
 JINJA_GRAMMAR: Grammar = {
     "<start>":["<for>"],
     "<for>": ["'{% for i in <list> %}<forbody><forend>"],
-    "<forbody>" : ["{{ [<stringchain>] | <filter> }}{{ ' ' }}", "\"<string>\"{%else%}\"<string>\"", "{{ <helper> }}:{{ i }}, "],
+    "<forbody>" : ["{{ [<stringchain>] | random }}{{ ' ' }}", "\"<string>\"{%else%}\"<string>\"", "{{ <helper> }}:{{ i }}, "],
     "<stringchain>":["\"<string>\",<stringchain>","\"<string>\""],
     "<string>": srange(string.ascii_letters + string.digits +
                                   "\"" + " " + "."),

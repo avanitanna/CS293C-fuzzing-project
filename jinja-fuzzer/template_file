@@ -1,1 +1,1 @@
-'{% for i in values %}"Z"{%else%}"Z"{% endfor %}'
+'{% for i in values|random %}"2"{%else%}"v"{% endfor %}'

@@ -1,3 +1,4 @@
+#test_mutations
 #fuzzer implementation
 #inspired by work from fuzzingbook
 
@@ -255,3 +256,38 @@ class DSMutator(Mutator):
         # node.test.ops = [ast.Invert()]
         # print(node.test.ops[0])
         return obj #return ast.Pass()
+ 
+def triangle(a, b, c):
+    # if a:
+    #     print("blah")
+    # elif not a:
+    #     print("blah blah")
+    d={"a":"b","c":"d"}
+    if a==b:
+        if b == c:
+            return 'Equilateral'
+        else:
+            return 'Isosceles'
+    else:
+        l=[1,2,4]
+        if b == c:
+            # r=0
+            # r+=1
+            return "Isosceles"
+        else:
+            if a == c:
+                return "Isosceles"
+            else:
+                return "Scalene"
+
+if __name__=="__main__":
+    from jinja2 import environment
+    mutant_srcs=[]
+    mutant_pm_srcs=[]
+    start = time.time()
+    for mutant in MuFunctionAnalyzer(triangle,strategy="ds"):
+        # print(mutant)
+        mutant_srcs.append(mutant.src())
+        mutant_pm_srcs.append(len(mutant.pm.src.split('\n')))
+    print(mutant_srcs)
+    print("time:",time.time()-start)

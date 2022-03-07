@@ -19,7 +19,7 @@ from fuzzingbook.GrammarFuzzer import GrammarFuzzer
 from fuzzingbook.ProbabilisticGrammarFuzzer import *
 
 #functions to generate mutants from
-from jinja_orig.jinja2 import Template as environment_mutate
+from jinja2 import environment as environment_mutate
 
 
 client = docker.from_env()
@@ -27,14 +27,9 @@ runner = client.containers.run("fuzzer-runner", working_dir = "/app/jinja-fuzzer
 command = "/bin/bash", tty=True, 
 detach = True, auto_remove = True, volumes={os.path.dirname(os.getcwd()): {'bind': '/app', 'mode': 'rw'}} )
 
-def test_env(sample):
-
+def test_env(rand_int):
     runner.exec_run("pip -qqq install -e ./jinja_mutate")
-    f=open("template_file","w")
-    f.write(sample)
-    f.close()
-    r = runner.exec_run("python3 jinja_tester.py")
-    # print(r.output)
+    r = runner.exec_run("python3 jinja_tester.py "+str(rand_int))
     return r.output.decode("utf-8")
 
 jinja_path = "jinja_mutate/jinja2/environment.py"
@@ -124,7 +119,11 @@ for i in range(int(sys.argv[1])): #limit iterations of fuzzer
             mutated_file.write(mutated_prog)
             mutated_file.close()
             start_time = time.time()
-            out = subprocess.Popen([sys.executable, "jinja_tester.py",jinja_inp],stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+            rand_int = random.randint(0,50)
+            samplef=open("template_file","w")
+            samplef.write(jinja_inp)
+            samplef.close()
+            out = subprocess.Popen([sys.executable, "jinja_tester.py",str(rand_int)],stdout=subprocess.PIPE,stderr=subprocess.PIPE)
             fuzzout, errors = out.communicate()
             fuzzout = fuzzout.decode("utf-8").split(":-")
             correct_cov=''
@@ -133,7 +132,7 @@ for i in range(int(sys.argv[1])): #limit iterations of fuzzer
                 correct_cov = fuzzout[1]
                 correct_output = fuzzout[0]            
             print(jinja_inp)
-            output_str = test_env(jinja_inp)
+            output_str = test_env(rand_int)
             print(output_str)
             print(fuzzout)
             print("time taken:",time.time()-start_time)
@@ -145,7 +144,7 @@ for i in range(int(sys.argv[1])): #limit iterations of fuzzer
             if len(testout) == 2:
                 test_output = testout[0]
                 test_cover = int(testout[1])
-            if fuzzout[0] == output_str == "killed":
+            if fuzzout[0] == "killed":
                 print("REAL ERROR FOUND!")
 
             if correct_output != test_output:
