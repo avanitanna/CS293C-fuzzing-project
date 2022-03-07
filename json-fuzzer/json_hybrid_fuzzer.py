@@ -143,7 +143,7 @@ for j in range(int(sys.argv[1])): #limit iterations of fuzzer
     global_output_log[tot] = [mut_limit - iter_death, iter_cov]
     top_global = sorted(global_output_log.items(), key = lambda item: item[1][1])[0]
     if len(killer_inputs) != 0:
-        hybrid_prob_grammar = mutant_grammar_gen.modify_vec(hybrid_prob_grammar, "mined", list(killer_inputs)) 
+        mut_prob_grammar = mutant_grammar_gen.modify_vec(mut_prob_grammar, "mined", list(killer_inputs)) 
     samples = []
     for k,v in top_k:
         if top_global[1][1] < v[1]:
@@ -170,9 +170,9 @@ plt.xlabel("Number of total iterations")
 plt.ylabel("Mutants Remaining")
 plt.xticks(range(len(x_kill)+1))
 plt.grid(True)
-#plt.savefig("mut_based_killed.png")
-#plt.clf()
-plt.show()
+plt.savefig("C:/Users/Avani/Data/Learning/UCSB_PREP/CS293C/CS293C-fuzzing-project/json-fuzzer/results/StmtReturnMutator/json_hybrid_fuzzer/mutant_50-50-50.png")
+plt.clf()
+#plt.show()
 
 plt.plot(x_cov,y_cov,color='green', marker='o')
 plt.title("Json hybrid fuzzer")
@@ -180,6 +180,6 @@ plt.xlabel("Number of total iterations")
 plt.ylabel("Coverage")
 plt.xticks(range(len(x_cov)+1))
 plt.grid(True)
-# plt.savefig("mut_based_cov.png")
-# plt.clf()
-plt.show()
+plt.savefig("C:/Users/Avani/Data/Learning/UCSB_PREP/CS293C/CS293C-fuzzing-project/json-fuzzer/results/StmtReturnMutator/json_hybrid_fuzzer/cov_50-50-50.png")
+plt.clf()
+#plt.show()

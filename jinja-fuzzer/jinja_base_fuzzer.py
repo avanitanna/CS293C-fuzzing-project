@@ -140,8 +140,8 @@ for i in range(int(sys.argv[1])): #limit iterations of fuzzer
 
             if fuzzout[0] == "killed":
                 print("REAL ERROR FOUND!")
-
-            if correct_output != test_output:
+            # take input into account if it finds real bugs
+            if correct_output != test_output or fuzzout[0] == "killed":
                 killer_inputs.add(jinja_inp)
                 mutant_killed+=1
                 killed_list.add(i)
@@ -169,7 +169,7 @@ y_cov += list(map(lambda x: global_output_log[x][1] ,global_output_log))
 x_cov = range(len(y_cov))
 
 plt.plot(x_kill,y_kill,color='red', marker='o')
-plt.title("Speed of update of inputs via randomness")
+plt.title("Jinja base fuzzer")
 plt.xlabel("Number of total iterations")
 plt.ylabel("Mutants Remaining")
 plt.xticks(range(len(x_kill)+1))
@@ -179,7 +179,7 @@ plt.clf()
 
 
 plt.plot(x_cov,y_cov,color='green', marker='o')
-plt.title("Speed of update of inputs via randomness")
+plt.title("Jinja base fuzzer")
 plt.xlabel("Number of total iterations")
 plt.ylabel("Coverage")
 plt.xticks(range(len(x_cov)+1))

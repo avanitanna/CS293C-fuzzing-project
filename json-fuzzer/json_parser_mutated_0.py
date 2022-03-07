@@ -17,7 +17,7 @@ def array_parser(data):
             return [parse_list, data[1:].strip()]
         res = comma_parser(data)
         if res is None:
-            pass
+            return None
         data = res[1].strip()
 
 def boolean_parser(data):
@@ -42,7 +42,7 @@ def number_parser(data):
     regex_find = re.findall('^(-?(?:[0-9]\\d*)(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)', data)
     if not regex_find:
         return None
-    pos = len(regex_find[0])
+    pass
     try:
         return [int(regex_find[0]), data[pos:].strip()]
     except ValueError:

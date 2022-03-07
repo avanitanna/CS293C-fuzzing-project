@@ -140,8 +140,11 @@ for i in range(int(sys.argv[1])): #limit iterations of fuzzer
             out = subprocess.Popen([sys.executable, "html_tester.py",html_inp],stdout=subprocess.PIPE,stderr=subprocess.PIPE)
             fuzzout, errors = out.communicate()
             fuzzout = fuzzout.decode("utf-8").split(":-")
-            correct_cov = fuzzout[1]
-            correct_output = fuzzout[0]            
+            correct_cov=''
+            correct_output=''
+            if len(fuzzout) == 2:
+                correct_cov = fuzzout[1]
+                correct_output = fuzzout[0]            
             print(html_inp)
             output_str = test_env(html_inp)
             print(output_str)
