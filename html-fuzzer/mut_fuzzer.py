@@ -110,11 +110,9 @@ tot = 0
 mutant_srcs = []
 mutant_pm_srcs = []
 mut_limit = int(sys.argv[3])
-if mut_limit > len(mutant_srcs):
-    mut_limit = len(mutant_srcs)    
-    print("Given argument too large for possible mutants, changing to", mut_limit)
 
 strategy = sys.argv[5]
+#print("strategy", strategy)
 if strategy == "mixed":
     del_mut = []
     ret_mut = []
@@ -155,8 +153,14 @@ if strategy == "mixed":
 
 
 else:
+    #print("entering loop for mutant generation")
     for mutant in mutant_creator.MuFunctionAnalyzer(etree, strategy=strategy): ## fn[0] is the function name. We need to pass the function, so take fn[1]
         mutant_srcs.append(mutant.src())
+    #print("len of mutant srcs", len(mutant_srcs))
+
+if mut_limit > len(mutant_srcs):
+    mut_limit = len(mutant_srcs)    
+    print("Given argument too large for possible mutants, changing to", mut_limit)
 
 mutant_srcs = mutant_srcs[:mut_limit]
 killed_list = set()
