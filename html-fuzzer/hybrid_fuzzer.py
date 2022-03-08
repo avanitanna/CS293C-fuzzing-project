@@ -27,7 +27,7 @@ from html5lib import _tokenizer #parser token generation html5lib-python-master/
 
 #globals
 format = "%(asctime)s: %(levelname)s: %(funcName)s: %(message)s"
-logging.basicConfig(filename='html-fuzzer-hybrid-'+str(sys.argv[1])+'-'+str(sys.argv[2])+'-'+str(sys.argv[3])+'.log', 
+logging.basicConfig(filename='html-fuzzer-hybrid-'+str(sys.argv[5])+'-'+str(sys.argv[1])+'-'+str(sys.argv[2])+'-'+str(sys.argv[3])+'.log', 
 filemode='w',format=format, level=logging.INFO, datefmt="%H:%M:%S")
 
 client = docker.from_env()
