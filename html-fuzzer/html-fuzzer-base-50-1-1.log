@@ -1,0 +1,31 @@
+17:32:10: INFO: <module>: for iteration:1:number of inputs:1
+17:32:14: INFO: <module>: for original code input:<!DOCTYPE html><body>Qr<br><br>B</body>:original code output:['Qr<br><br>B', '449\n']
+17:32:14: INFO: <module>: For mutated code input:<!DOCTYPE html><body><style>Q</style><br>lu</body>:mutated code output:['Qr<br><br>B', '446\n']
+17:32:14: INFO: <module>: iteration:1:input:<!DOCTYPE html><body>Qr<br><br>B</body>:max coverage:446:mutants killed:0/1
+17:32:14: INFO: <module>: iteration complete:1:iteration stats:{"<!DOCTYPE html><body>Qr<br><br>B</body>": [0, 446]}
+17:32:14: INFO: <module>: for iteration:2:number of inputs:1
+17:32:18: INFO: <module>: for original code input:<!DOCTYPE html><body>4Ta</body>:original code output:['4Ta', '437\n']
+17:32:18: INFO: <module>: For mutated code input:<!DOCTYPE html><body><style>Q</style><br>lu</body>:mutated code output:['4Ta', '434\n']
+17:32:18: INFO: <module>: iteration:2:input:<!DOCTYPE html><body>4Ta</body>:max coverage:434:mutants killed:0/1
+17:32:18: INFO: <module>: iteration complete:2:iteration stats:{"<!DOCTYPE html><body>4Ta</body>": [0, 434]}
+17:32:18: INFO: <module>: for iteration:3:number of inputs:1
+17:32:22: INFO: <module>: for original code input:<!DOCTYPE html><body>FJcU</body>:original code output:['FJcU', '437\n']
+17:32:22: INFO: <module>: For mutated code input:<!DOCTYPE html><body><style>Q</style><br>lu</body>:mutated code output:['FJcU', '434\n']
+17:32:22: INFO: <module>: iteration:3:input:<!DOCTYPE html><body>FJcU</body>:max coverage:434:mutants killed:0/1
+17:32:22: INFO: <module>: iteration complete:3:iteration stats:{"<!DOCTYPE html><body>FJcU</body>": [0, 434]}
+17:32:22: INFO: <module>: for iteration:4:number of inputs:1
+17:32:26: INFO: <module>: for original code input:<!DOCTYPE html><body><br><br>6uE 1</body>:original code output:['<br><br>6uE 1', '444\n']
+17:32:26: INFO: <module>: For mutated code input:<!DOCTYPE html><body><style>Q</style><br>lu</body>:mutated code output:['<br><br>6uE 1', '441\n']
+17:32:26: INFO: <module>: iteration:4:input:<!DOCTYPE html><body><br><br>6uE 1</body>:max coverage:441:mutants killed:0/1
+17:32:26: INFO: <module>: iteration complete:4:iteration stats:{"<!DOCTYPE html><body><br><br>6uE 1</body>": [0, 441]}
+17:32:26: INFO: <module>: for iteration:5:number of inputs:1
+17:32:30: INFO: <module>: for original code input:<!DOCTYPE html><body><script>5</script>s</body>:original code output:['<body><script>5</script>s', '479\n']
+17:32:30: INFO: <module>: For mutated code input:<!DOCTYPE html><body><style>Q</style><br>lu</body>:mutated code output:['<body><script>5</script>s', '476\n']
+17:32:30: INFO: <module>: iteration:5:input:<!DOCTYPE html><body><script>5</script>s</body>:max coverage:476:mutants killed:0/1
+17:32:30: INFO: <module>: iteration complete:5:iteration stats:{"<!DOCTYPE html><body><script>5</script>s</body>": [0, 476]}
+17:32:30: INFO: <module>: for iteration:6:number of inputs:1
+17:32:34: INFO: <module>: for original code input:<!DOCTYPE html><body><a href='I'></a>B</body>:original code output:['<a href=I></a>B', '527\n']
+17:32:34: INFO: <module>: For mutated code input:<!DOCTYPE html><body><style>Q</style><br>lu</body>:mutated code output:['<a href=I></a>B', '521\n']
+17:32:34: INFO: <module>: iteration:6:input:<!DOCTYPE html><body><a href='I'></a>B</body>:max coverage:521:mutants killed:0/1
+17:32:34: INFO: <module>: iteration complete:6:iteration stats:{"<!DOCTYPE html><body><a href='I'></a>B</body>": [0, 521]}
+17:32:34: INFO: <module>: for iteration:7:number of inputs:1

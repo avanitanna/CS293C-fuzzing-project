@@ -3,9 +3,9 @@ import sys
 sys.path.append("../")
 from fuzzingbook.Coverage import Coverage
 
-f=open("template_file")
+f=open("template_file_"+str(sys.argv[1]))
 temp=f.read()
-rand_int = int(sys.argv[1])
+rand_int = int(sys.argv[2])
 op=''
 for i in range(2):
     try:

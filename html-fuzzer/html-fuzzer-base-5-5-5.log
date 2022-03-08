@@ -1,0 +1,78 @@
+03:23:04: INFO: <module>: for iteration:1:number of inputs:5
+03:23:08: INFO: test_env: for original code input:<!DOCTYPE html><body>T80</body>:original code output:['T80', '437\n']
+03:23:08: INFO: test_env: For mutated code input:<!DOCTYPE html><body>T80</body>:mutated code output:['', '294\n']
+03:23:08: INFO: test_env: Mutant killed with<!DOCTYPE html><body>T80</body>! Current mutant killed list:{0}
+03:23:10: INFO: test_env: for original code input:<!DOCTYPE html><body>MSMVvW</body>:original code output:['MSMVvW', '437\n']
+03:23:10: INFO: test_env: For mutated code input:<!DOCTYPE html><body>MSMVvW</body>:mutated code output:['', '294\n']
+03:23:10: INFO: test_env: Mutant killed with<!DOCTYPE html><body>MSMVvW</body>! Current mutant killed list:{0}
+03:23:10: INFO: test_env: for original code input:<!DOCTYPE html><body>T80</body>:original code output:['T80', '437\n']
+03:23:10: INFO: test_env: For mutated code input:<!DOCTYPE html><body>T80</body>:mutated code output:['', '294\n']
+03:23:10: INFO: test_env: Mutant killed with<!DOCTYPE html><body>T80</body>! Current mutant killed list:{0, 1}
+03:23:12: INFO: test_env: for original code input:<!DOCTYPE html><body>T</body>:original code output:['T', '434\n']
+03:23:12: INFO: test_env: For mutated code input:<!DOCTYPE html><body>T</body>:mutated code output:['', '294\n']
+03:23:12: INFO: test_env: Mutant killed with<!DOCTYPE html><body>T</body>! Current mutant killed list:{0, 1}
+03:23:12: INFO: test_env: for original code input:<!DOCTYPE html><body>MSMVvW</body>:original code output:['MSMVvW', '437\n']
+03:23:12: INFO: test_env: For mutated code input:<!DOCTYPE html><body>MSMVvW</body>:mutated code output:['', '294\n']
+03:23:12: INFO: test_env: Mutant killed with<!DOCTYPE html><body>MSMVvW</body>! Current mutant killed list:{0, 1}
+03:23:13: INFO: test_env: for original code input:<!DOCTYPE html><body>T80</body>:original code output:['T80', '437\n']
+03:23:13: INFO: test_env: For mutated code input:<!DOCTYPE html><body>T80</body>:mutated code output:['', '294\n']
+03:23:13: INFO: test_env: Mutant killed with<!DOCTYPE html><body>T80</body>! Current mutant killed list:{0, 1, 2}
+03:23:13: INFO: test_env: for original code input:<!DOCTYPE html><body>1w4<br>L</body>:original code output:['1w4<br>L', '448\n']
+03:23:13: INFO: test_env: For mutated code input:<!DOCTYPE html><body>1w4<br>L</body>:mutated code output:['', '294\n']
+03:23:13: INFO: test_env: Mutant killed with<!DOCTYPE html><body>1w4<br>L</body>! Current mutant killed list:{0, 1, 2}
+03:23:14: INFO: test_env: for original code input:<!DOCTYPE html><body>T</body>:original code output:['T', '434\n']
+03:23:14: INFO: test_env: For mutated code input:<!DOCTYPE html><body>T</body>:mutated code output:['', '294\n']
+03:23:14: INFO: test_env: Mutant killed with<!DOCTYPE html><body>T</body>! Current mutant killed list:{0, 1, 2}
+03:23:14: INFO: test_env: for original code input:<!DOCTYPE html><body>MSMVvW</body>:original code output:['MSMVvW', '437\n']
+03:23:14: INFO: test_env: For mutated code input:<!DOCTYPE html><body>MSMVvW</body>:mutated code output:['', '294\n']
+03:23:14: INFO: test_env: Mutant killed with<!DOCTYPE html><body>MSMVvW</body>! Current mutant killed list:{0, 1, 2}
+03:23:15: INFO: test_env: for original code input:<!DOCTYPE html><body>T80</body>:original code output:['T80', '437\n']
+03:23:15: INFO: test_env: For mutated code input:<!DOCTYPE html><body>T80</body>:mutated code output:['', '294\n']
+03:23:15: INFO: test_env: Mutant killed with<!DOCTYPE html><body>T80</body>! Current mutant killed list:{0, 1, 2, 3}
+03:23:15: INFO: test_env: for original code input:<!DOCTYPE html><body>zz</body>:original code output:['zz', '437\n']
+03:23:15: INFO: test_env: For mutated code input:<!DOCTYPE html><body>zz</body>:mutated code output:['', '294\n']
+03:23:15: INFO: test_env: Mutant killed with<!DOCTYPE html><body>zz</body>! Current mutant killed list:{0, 1, 2, 3}
+03:23:16: INFO: test_env: for original code input:<!DOCTYPE html><body>1w4<br>L</body>:original code output:['1w4<br>L', '448\n']
+03:23:16: INFO: test_env: For mutated code input:<!DOCTYPE html><body>1w4<br>L</body>:mutated code output:['', '294\n']
+03:23:16: INFO: test_env: Mutant killed with<!DOCTYPE html><body>1w4<br>L</body>! Current mutant killed list:{0, 1, 2, 3}
+03:23:16: INFO: test_env: for original code input:<!DOCTYPE html><body>T</body>:original code output:['T', '434\n']
+03:23:16: INFO: test_env: For mutated code input:<!DOCTYPE html><body>T</body>:mutated code output:['', '294\n']
+03:23:16: INFO: test_env: Mutant killed with<!DOCTYPE html><body>T</body>! Current mutant killed list:{0, 1, 2, 3}
+03:23:16: INFO: test_env: for original code input:<!DOCTYPE html><body>MSMVvW</body>:original code output:['MSMVvW', '437\n']
+03:23:16: INFO: test_env: For mutated code input:<!DOCTYPE html><body>MSMVvW</body>:mutated code output:['', '294\n']
+03:23:16: INFO: test_env: Mutant killed with<!DOCTYPE html><body>MSMVvW</body>! Current mutant killed list:{0, 1, 2, 3}
+03:23:17: INFO: test_env: for original code input:<!DOCTYPE html><body>T80</body>:original code output:['T80', '437\n']
+03:23:17: INFO: test_env: For mutated code input:<!DOCTYPE html><body>T80</body>:mutated code output:['', '294\n']
+03:23:17: INFO: test_env: Mutant killed with<!DOCTYPE html><body>T80</body>! Current mutant killed list:{0, 1, 2, 3, 4}
+03:23:17: INFO: test_env: for original code input:<!DOCTYPE html><body>zz</body>:original code output:['zz', '437\n']
+03:23:17: INFO: test_env: For mutated code input:<!DOCTYPE html><body>zz</body>:mutated code output:['', '294\n']
+03:23:17: INFO: test_env: Mutant killed with<!DOCTYPE html><body>zz</body>! Current mutant killed list:{0, 1, 2, 3, 4}
+03:23:18: INFO: test_env: for original code input:<!DOCTYPE html><body>1w4<br>L</body>:original code output:['1w4<br>L', '448\n']
+03:23:18: INFO: test_env: For mutated code input:<!DOCTYPE html><body>1w4<br>L</body>:mutated code output:['', '294\n']
+03:23:18: INFO: test_env: Mutant killed with<!DOCTYPE html><body>1w4<br>L</body>! Current mutant killed list:{0, 1, 2, 3, 4}
+03:23:18: INFO: test_env: for original code input:<!DOCTYPE html><body>T</body>:original code output:['T', '434\n']
+03:23:18: INFO: test_env: For mutated code input:<!DOCTYPE html><body>T</body>:mutated code output:['', '294\n']
+03:23:18: INFO: test_env: Mutant killed with<!DOCTYPE html><body>T</body>! Current mutant killed list:{0, 1, 2, 3, 4}
+03:23:18: INFO: test_env: for original code input:<!DOCTYPE html><body>MSMVvW</body>:original code output:['MSMVvW', '437\n']
+03:23:18: INFO: test_env: For mutated code input:<!DOCTYPE html><body>MSMVvW</body>:mutated code output:['', '294\n']
+03:23:18: INFO: test_env: Mutant killed with<!DOCTYPE html><body>MSMVvW</body>! Current mutant killed list:{0, 1, 2, 3, 4}
+03:23:19: INFO: test_env: for original code input:<!DOCTYPE html><body>zz</body>:original code output:['zz', '437\n']
+03:23:19: INFO: test_env: For mutated code input:<!DOCTYPE html><body>zz</body>:mutated code output:['', '294\n']
+03:23:19: INFO: test_env: Mutant killed with<!DOCTYPE html><body>zz</body>! Current mutant killed list:{0, 1, 2, 3, 4}
+03:23:20: INFO: test_env: for original code input:<!DOCTYPE html><body>1w4<br>L</body>:original code output:['1w4<br>L', '448\n']
+03:23:20: INFO: test_env: For mutated code input:<!DOCTYPE html><body>1w4<br>L</body>:mutated code output:['', '294\n']
+03:23:20: INFO: test_env: Mutant killed with<!DOCTYPE html><body>1w4<br>L</body>! Current mutant killed list:{0, 1, 2, 3, 4}
+03:23:20: INFO: test_env: for original code input:<!DOCTYPE html><body>T</body>:original code output:['T', '434\n']
+03:23:20: INFO: test_env: For mutated code input:<!DOCTYPE html><body>T</body>:mutated code output:['', '294\n']
+03:23:20: INFO: test_env: Mutant killed with<!DOCTYPE html><body>T</body>! Current mutant killed list:{0, 1, 2, 3, 4}
+03:23:21: INFO: test_env: for original code input:<!DOCTYPE html><body>zz</body>:original code output:['zz', '437\n']
+03:23:21: INFO: test_env: For mutated code input:<!DOCTYPE html><body>zz</body>:mutated code output:['', '294\n']
+03:23:21: INFO: test_env: Mutant killed with<!DOCTYPE html><body>zz</body>! Current mutant killed list:{0, 1, 2, 3, 4}
+03:23:22: INFO: test_env: for original code input:<!DOCTYPE html><body>1w4<br>L</body>:original code output:['1w4<br>L', '448\n']
+03:23:22: INFO: test_env: For mutated code input:<!DOCTYPE html><body>1w4<br>L</body>:mutated code output:['', '294\n']
+03:23:22: INFO: test_env: Mutant killed with<!DOCTYPE html><body>1w4<br>L</body>! Current mutant killed list:{0, 1, 2, 3, 4}
+03:23:23: INFO: test_env: for original code input:<!DOCTYPE html><body>zz</body>:original code output:['zz', '437\n']
+03:23:23: INFO: test_env: For mutated code input:<!DOCTYPE html><body>zz</body>:mutated code output:['', '294\n']
+03:23:23: INFO: test_env: Mutant killed with<!DOCTYPE html><body>zz</body>! Current mutant killed list:{0, 1, 2, 3, 4}
+03:23:23: INFO: <module>: iteration log:{"<!DOCTYPE html><body>T80</body>": [5, 294], "<!DOCTYPE html><body>MSMVvW</body>": [5, 294], "<!DOCTYPE html><body>T</body>": [5, 294], "<!DOCTYPE html><body>1w4<br>L</body>": [5, 294], "<!DOCTYPE html><body>zz</body>": [5, 294]}
+03:23:23: INFO: <module>: global iteration stats:{}

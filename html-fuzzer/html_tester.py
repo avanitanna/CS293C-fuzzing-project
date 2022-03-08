@@ -24,7 +24,7 @@ def test_function(sample, ind):
     ex_str=''
     for i in output:
         ex_str+=i
-    if i == 1:
+    if ind == 1:
         print(ex_str+":-"+str(len(cov)))
 
 if __name__=="__main__":

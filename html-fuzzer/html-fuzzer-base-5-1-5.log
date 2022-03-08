@@ -1,0 +1,40 @@
+01:09:51: INFO: <module>: for iteration:1:number of inputs:1
+01:09:56: INFO: test_env: for original code input:<!DOCTYPE html><body>Qr<br><br>B</body>:original code output:['Qr<br><br>B', '449\n']
+01:09:56: INFO: test_env: For mutated code input:<!DOCTYPE html><body>Qr<br><br>B</body>:mutated code output:['Qr<br><br>B', '446\n']
+01:09:58: INFO: test_env: for original code input:<!DOCTYPE html><body>Qr<br><br>B</body>:original code output:['Qr<br><br>B', '449\n']
+01:09:58: INFO: test_env: For mutated code input:<!DOCTYPE html><body>Qr<br><br>B</body>:mutated code output:['', '28\n']
+01:09:58: INFO: test_env: Mutant killed with<!DOCTYPE html><body>Qr<br><br>B</body>! Current mutant killed list:{1}
+01:10:00: INFO: test_env: for original code input:<!DOCTYPE html><body>Qr<br><br>B</body>:original code output:['Qr<br><br>B', '449\n']
+01:10:00: INFO: test_env: For mutated code input:<!DOCTYPE html><body>Qr<br><br>B</body>:mutated code output:['Qr<br><br>B', '446\n']
+01:10:04: INFO: test_env: for original code input:<!DOCTYPE html><body>Qr<br><br>B</body>:original code output:['Qr<br><br>B', '449\n']
+01:10:04: INFO: test_env: For mutated code input:<!DOCTYPE html><body>Qr<br><br>B</body>:mutated code output:['', '45\n']
+01:10:04: INFO: test_env: Mutant killed with<!DOCTYPE html><body>Qr<br><br>B</body>! Current mutant killed list:{1, 3}
+01:10:05: INFO: test_env: for original code input:<!DOCTYPE html><body>Qr<br><br>B</body>:original code output:['Qr<br><br>B', '449\n']
+01:10:05: INFO: test_env: For mutated code input:<!DOCTYPE html><body>Qr<br><br>B</body>:mutated code output:['', '313\n']
+01:10:05: INFO: test_env: Mutant killed with<!DOCTYPE html><body>Qr<br><br>B</body>! Current mutant killed list:{1, 3, 4}
+01:10:05: INFO: <module>: iteration log:{"<!DOCTYPE html><body>Qr<br><br>B</body>": [3, 446]}
+01:10:05: INFO: <module>: for iteration:2:number of inputs:1
+01:10:10: INFO: test_env: for original code input:<!DOCTYPE html><body>4Ta</body>:original code output:['4Ta', '437\n']
+01:10:10: INFO: test_env: For mutated code input:<!DOCTYPE html><body>4Ta</body>:mutated code output:['4Ta', '434\n']
+01:10:11: INFO: test_env: for original code input:<!DOCTYPE html><body>4Ta</body>:original code output:['4Ta', '437\n']
+01:10:11: INFO: test_env: For mutated code input:<!DOCTYPE html><body>4Ta</body>:mutated code output:['4Ta', '434\n']
+01:10:11: INFO: <module>: iteration log:{"<!DOCTYPE html><body>4Ta</body>": [0, 434]}
+01:10:11: INFO: <module>: for iteration:3:number of inputs:1
+01:10:15: INFO: test_env: for original code input:<!DOCTYPE html><body>FJcU</body>:original code output:['FJcU', '437\n']
+01:10:15: INFO: test_env: For mutated code input:<!DOCTYPE html><body>FJcU</body>:mutated code output:['FJcU', '434\n']
+01:10:17: INFO: test_env: for original code input:<!DOCTYPE html><body>FJcU</body>:original code output:['FJcU', '437\n']
+01:10:17: INFO: test_env: For mutated code input:<!DOCTYPE html><body>FJcU</body>:mutated code output:['FJcU', '434\n']
+01:10:17: INFO: <module>: iteration log:{"<!DOCTYPE html><body>FJcU</body>": [0, 434]}
+01:10:17: INFO: <module>: for iteration:4:number of inputs:1
+01:10:21: INFO: test_env: for original code input:<!DOCTYPE html><body><br><br>6uE 1</body>:original code output:['<br><br>6uE 1', '444\n']
+01:10:21: INFO: test_env: For mutated code input:<!DOCTYPE html><body><br><br>6uE 1</body>:mutated code output:['<br><br>6uE 1', '441\n']
+01:10:23: INFO: test_env: for original code input:<!DOCTYPE html><body><br><br>6uE 1</body>:original code output:['<br><br>6uE 1', '444\n']
+01:10:23: INFO: test_env: For mutated code input:<!DOCTYPE html><body><br><br>6uE 1</body>:mutated code output:['<br><br>6uE 1', '441\n']
+01:10:23: INFO: <module>: iteration log:{"<!DOCTYPE html><body><br><br>6uE 1</body>": [0, 441]}
+01:10:23: INFO: <module>: for iteration:5:number of inputs:1
+01:10:27: INFO: test_env: for original code input:<!DOCTYPE html><body><script>5</script>s</body>:original code output:['<body><script>5</script>s', '479\n']
+01:10:27: INFO: test_env: For mutated code input:<!DOCTYPE html><body><script>5</script>s</body>:mutated code output:['<body><script>5</script>s', '476\n']
+01:10:29: INFO: test_env: for original code input:<!DOCTYPE html><body><script>5</script>s</body>:original code output:['<body><script>5</script>s', '479\n']
+01:10:29: INFO: test_env: For mutated code input:<!DOCTYPE html><body><script>5</script>s</body>:mutated code output:['<body><script>5</script>s', '476\n']
+01:10:29: INFO: <module>: iteration log:{"<!DOCTYPE html><body><script>5</script>s</body>": [0, 476]}
+01:10:29: INFO: <module>: global iteration stats:{"1": [2, 446], "2": [2, 434], "3": [2, 434], "4": [2, 441], "5": [2, 476]}

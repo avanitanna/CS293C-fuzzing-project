@@ -4,7 +4,6 @@
 import ast
 import inspect
 import difflib
-import time 
 class Mutant:
     def __init__(self, pm, location, strategy, log=False):
         self.pm = pm
@@ -69,7 +68,7 @@ class MuFunctionAnalyzer:
         self.mutator = self.mutator_object(strategy=strategy)
         # print(self.mutator)
         self.nmutations = self.get_mutation_count()
-        print(self.nmutations)
+        # print(self.nmutations)
         self.un_detected = set()
         self.mutants = []
         self.log = log
@@ -114,30 +113,6 @@ class Mutator(ast.NodeTransformer):
 
 class StmtReturnMutator(Mutator):
     def visit_Return(self, node): return self.mutable_visit(node)
-    def visit_Delete(self, node): return self.mutable_visit(node)
-
-    def visit_Assign(self, node): return self.mutable_visit(node) #r=0
-    def visit_AnnAssign(self, node): return self.mutable_visit(node) #??
-    def visit_AugAssign(self, node): return self.mutable_visit(node) #r+=1
-
-    def visit_Raise(self, node): return self.mutable_visit(node)
-    def visit_Assert(self, node): return self.mutable_visit(node)
-
-    def visit_Global(self, node): return self.mutable_visit(node)
-    def visit_Nonlocal(self, node): return self.mutable_visit(node)
-
-    def visit_Expr(self, node): return self.mutable_visit(node) #a+b
-    # def visit_If(self, node):
-    #     if (type(node.test) == type(ast.Name()) or type(node.test) == type(ast.Compare()) 
-    #     or type(node.test) == type(ast.UnaryOp())):
-    #         # obj = ast.parse("not "+node.test.id)
-    #         return self.mutable_visit(node, flag="add") #changes if a to if not a, and if expr to if not expr
-
-    #     print(type(node.test) == type(ast.Name()))
-    #     # node.test.ops = [ast.Invert()]
-    #     # print(node.test.ops[0])
-    #     return self.mutable_visit(node)
-
     def visit_Pass(self, node): return self.mutable_visit(node)
     def visit_Break(self, node): return self.mutable_visit(node)
     def visit_Continue(self, node): return self.mutable_visit(node)
@@ -145,11 +120,7 @@ class StmtReturnMutator(Mutator):
     def mutation_visit(self, node, flag=None): 
         obj=None
         obj = ast.Return(None)
-        # print("using wrong variation")
-        #print(type(node.test) == type(ast.Name()))
-        # node.test.ops = [ast.Invert()]
-        # print(node.test.ops[0])
-        return obj #return ast.Pass() 
+        return obj
 
 class StmtDeletionMutator(Mutator):
     def visit_Return(self, node): return self.mutable_visit(node)

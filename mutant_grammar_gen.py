@@ -1,6 +1,4 @@
-from fuzzingbook import Grammars
 from fuzzingbook.Grammars import *
-from fuzzingbook import GrammarFuzzer
 from fuzzingbook.GrammarFuzzer import GrammarFuzzer
 from fuzzingbook.ProbabilisticGrammarFuzzer import *
 # from fuzzingbook.Fuzzer import Fuzzer
