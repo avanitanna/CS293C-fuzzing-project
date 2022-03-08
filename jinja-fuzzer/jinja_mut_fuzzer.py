@@ -147,7 +147,7 @@ if strategy == "mixed":
     
     min_len = min([len(if_mut), len(ret_mut), len(ds_mut), len(del_mut)])
 
-    for i in range(min_len):
+    for i in range(mut_limit):
         ret_rand = random.randint(0,len(ret_mut)-1)
         del_rand = random.randint(0,len(del_mut)-1)
         if_rand = random.randint(0,len(if_mut)-1)
