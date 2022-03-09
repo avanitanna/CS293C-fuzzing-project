@@ -80,6 +80,11 @@ def test_env(runner,samples,ind):
                     update_ds(sample,mut_out[1],1)
                 else:
                     update_ds(sample,mut_out[1],0)
+            elif "invalid" in mut_out[0]:
+                    killed_list.add(ind)
+                    killer_inputs.add(sample)
+                    logging.info("Mutant killed with"+sample+"! Current mutant killed list:"+str(killed_list))
+                    update_ds(sample,mut_out[1],1)
         else:
             logging.log("Input:"+sample+":Found a real bug!")
 htmltree_path = "html5lib-python-mutate/html5lib/treebuilders/etree.py"
