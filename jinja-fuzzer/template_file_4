@@ -1,1 +1,0 @@
-'{% for i in values %}{{ ["o","k","f","R","R","o","k","o","o","z","S","R","f"] | random }}{{ ' ' }}{% endfor %}'

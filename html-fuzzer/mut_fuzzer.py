@@ -27,7 +27,7 @@ from html5lib import _tokenizer #parser token generation html5lib-python-master/
 
 #globals
 format = "%(asctime)s: %(levelname)s: %(funcName)s: %(message)s"
-logging.basicConfig(filename='html-fuzzer-mut-'+str(sys.argv[5])+'-'+str(sys.argv[1])+'-'+str(sys.argv[2])+'-'+str(sys.argv[3])+'.log', 
+logging.basicConfig(filename='html-fuzzer-mut-'+str(sys.argv[1])+'-'+str(sys.argv[2])+'-'+str(sys.argv[3])+'.log', 
 filemode='w',format=format, level=logging.INFO, datefmt="%H:%M:%S")
 
 client = docker.from_env()
@@ -78,6 +78,7 @@ def test_env(runner,samples,ind):
                     killer_inputs.add(sample)
                     logging.info("Mutant killed with"+sample+"! Current mutant killed list:"+str(killed_list))
                     update_ds(sample,mut_out[1],1)
+                    break
                 else:
                     update_ds(sample,mut_out[1],0)
             elif "invalid" in mut_out[0]:
@@ -85,6 +86,9 @@ def test_env(runner,samples,ind):
                     killer_inputs.add(sample)
                     logging.info("Mutant killed with"+sample+"! Current mutant killed list:"+str(killed_list))
                     update_ds(sample,mut_out[1],1)
+                    break
+        else:
+            logging.log("Input:"+sample+":Found a real bug!")
 
 htmltree_path = "html5lib-python-mutate/html5lib/treebuilders/etree.py"
 htmltree_to_fuzz = open(htmltree_path)
@@ -229,7 +233,7 @@ for i in range(int(sys.argv[1])): #limit iterations of fuzzer
             ind+=1
     logging.info("iteration log:"+json.dumps(iter_output_log))
     print("iteration:"+str(tot)+" completed in "+str(time.time()-start))
-    if len(killed_list) == mut_limit:
+    if len(killed_list) == mut_limit and len(iter_output_log)==0:
         print("all mutants died before specified iterations completetion")
         break
     iter_cov = max(list(map(lambda x: iter_output_log[x][1], iter_output_log)))

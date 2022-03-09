@@ -27,7 +27,7 @@ from html5lib import _tokenizer #parser token generation html5lib-python-master/
 
 #globals
 format = "%(asctime)s: %(levelname)s: %(funcName)s: %(message)s"
-logging.basicConfig(filename='html-fuzzer-cov-'+str(sys.argv[5])+'-'+str(sys.argv[1])+'-'+str(sys.argv[2])+'-'+str(sys.argv[3])+'.log', 
+logging.basicConfig(filename='html-fuzzer-cov-'+str(sys.argv[1])+'-'+str(sys.argv[2])+'-'+str(sys.argv[3])+'.log', 
 filemode='w',format=format, level=logging.INFO, datefmt="%H:%M:%S")
 
 client = docker.from_env()
@@ -78,6 +78,7 @@ def test_env(runner,samples,ind):
                     killer_inputs.add(sample)
                     logging.info("Mutant killed with"+sample+"! Current mutant killed list:"+str(killed_list))
                     update_ds(sample,mut_out[1],1)
+                    break
                 else:
                     update_ds(sample,mut_out[1],0)
             elif "invalid" in mut_out[0]:
@@ -85,6 +86,7 @@ def test_env(runner,samples,ind):
                     killer_inputs.add(sample)
                     logging.info("Mutant killed with"+sample+"! Current mutant killed list:"+str(killed_list))
                     update_ds(sample,mut_out[1],1)
+                    break
         else:
             logging.log("Input:"+sample+":Found a real bug!")
 htmltree_path = "html5lib-python-mutate/html5lib/treebuilders/etree.py"

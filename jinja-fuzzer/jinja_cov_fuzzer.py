@@ -81,6 +81,7 @@ def test_env(runner,samples,ind):
                     killer_inputs.add(sample)
                     logging.info("Mutant killed with"+sample+"! Current mutant killed list:"+str(killed_list))
                     update_ds(sample,mut_out[1],1)
+                    break
                 else:
                     update_ds(sample,mut_out[1],0)
             elif "killed" in mut_out[0]:
@@ -88,6 +89,7 @@ def test_env(runner,samples,ind):
                 killer_inputs.add(sample)
                 logging.info("Mutant killed with"+sample+"! Current mutant killed list:"+str(killed_list))
                 update_ds(sample,"0",1)
+                break
         else:
             logging.log("Input:"+sample+":Found a real bug!")
 
