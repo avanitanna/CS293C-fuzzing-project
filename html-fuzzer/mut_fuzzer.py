@@ -139,22 +139,22 @@ if strategy == "mixed":
     min_len = min([len(if_mut), len(ret_mut), len(ds_mut), len(del_mut)])
 
     for i in range(mut_limit):
-        ret_rand = random.randint(0,len(ret_mut))
-        del_rand = random.randint(0,len(del_mut))
-        if_rand = random.randint(0,len(if_mut))
-        ds_rand = random.randint(0,len(ds_mut))
+        ret_rand = random.randint(0,len(ret_mut)-1)
+        del_rand = random.randint(0,len(del_mut)-1)
+        if_rand = random.randint(0,len(if_mut)-1)
+        ds_rand = random.randint(0,len(ds_mut)-1)
 
         if ret_mut[ret_rand] not in mutant_srcs:
-            mutant_srcs.append(ret_mut[i])
+            mutant_srcs.append(ret_mut[ret_rand])
 
         if del_mut[del_rand] not in mutant_srcs:
-            mutant_srcs.append(del_mut[i])
+            mutant_srcs.append(del_mut[del_rand])
 
         if if_mut[if_rand] not in mutant_srcs:
-            mutant_srcs.append(if_mut[i])
+            mutant_srcs.append(if_mut[if_rand])
 
         if ds_mut[ds_rand] not in mutant_srcs:
-            mutant_srcs.append(ds_mut[i])
+            mutant_srcs.append(ds_mut[ds_rand])
 
 
 else:
