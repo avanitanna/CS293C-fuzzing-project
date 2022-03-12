@@ -1,5 +1,6 @@
 # CS293C-fuzzing-project
 
+### Project proposal 
 
 Project: Mutant Guided Fuzzing
 By: Avani Tanna, Animesh Dangwal
