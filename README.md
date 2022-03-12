@@ -1,5 +1,29 @@
 # CS293C-fuzzing-project
 
+## Dependencies
+- docker
+- html5lib v1.1
+- jinja2 v2.2, v3.0
+- python3.9+ or conda with python3.9 environment 
+- fuzzingbook
+- pipv21+
+- markdown 
+- numpy 
+- matplotlib
+- graphviz 
+- markupsafe v2.0.1
+
+## Setup
+1. Run the dockerfile to create image with name `fuzzer-runner`:
+``` docker run -t fuzzer-runner .```
+2. cd into `html-fuzzer` or `jinja-fuzzer` to run experiments on each program and run:
+
+```  python3 <type of fuzzer>.py <number of iterations> <number of inputs> <number of mutants> <number of parallel docker containers> <strategy>```
+
+For example:
+``` python3 cov_fuzzer.py 30 10 10 5 mixed ```
+
+## Initial Proposal (has since been changed in the final report)
 
 Project: Mutant Guided Fuzzing
 By: Avani Tanna, Animesh Dangwal
