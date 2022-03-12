@@ -2,7 +2,7 @@
 
 ### Project proposal 
 
-Project: Mutant Guided Fuzzing
+Mutant Guided Fuzzing
 By: Avani Tanna, Animesh Dangwal
 
 Coverage-based approaches are used as a way to guide fuzzers to generate inputs to explore paths [1,2]. Coverage is also a popular metric used to measure the effectiveness of fuzzers[1,2]. However, it is widely agreed that coverage is not enough in guiding a fuzzer due to coverage saturation [3] and it is also not enough for evaluating fuzzers [4]. Recent research [3,4,5] introduces new metrics that might be more realistic than coverage to evaluate a fuzzer. We investigate mutant analysis. Typically in mutant analysis, we measure the effectiveness of a fuzzer through the number of mutants killed. With our project, we aim to use mutant analysis not just for comparing fuzzers, but as a guide to generate better inputs which can potentially kill more mutants.
